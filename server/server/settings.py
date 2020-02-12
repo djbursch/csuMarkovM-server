@@ -77,6 +77,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'csuOracleDB',
+	'CLIENT': {
+		'username': 'jackson',
+		'password': 'pass',
+		'authSource': 'csuOracleDB'
+	}
     }
 }
 
