@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
+from .models import Array
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    latest_array_list = Array.objects.order_by('-pub_date')[:5]
+    output = ', '.join([a.array_num for a in latest_array_list])
+    return HttpResponse(output)
