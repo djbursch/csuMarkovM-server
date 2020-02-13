@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('single/<int:array_id>/', views.singleArray, name = 'singleArray'),
     path('single/upload/', views.createArray, name = 'createArray'),
+    path('oracle/<int:array_id>/', views.stdDev, name = 'stdDev'),
 ]
