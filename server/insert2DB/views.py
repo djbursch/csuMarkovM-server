@@ -1,9 +1,7 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Array
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-from django.http import JsonResponse
 from .oracle import Oracle
 
 def index(request):
