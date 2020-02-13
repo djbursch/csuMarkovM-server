@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from .models import Array
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
+from django.http import JsonResponse
 
 def index(request):
-    latest_array_list = Array.objects.order_by('-pub_date')[:5]
+    latest_array_list = Array.objects.order_by('-pub_date')[:20]
     output = ', '.join([a.array_num for a in latest_array_list])
     return HttpResponse(output)
 
@@ -14,6 +15,6 @@ def singleArray(request, array_id):
 	return HttpResponse(array)
 
 def createArray(request):
-	a = Array(array_num = "lets see if it works", pub_date=timezone.now())
+	a = Array(array_num = request.POST.get('array_num'), pub_date=timezone.now())
 	a.save()
 	return HttpResponse(a)
