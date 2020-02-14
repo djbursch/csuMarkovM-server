@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from .models import Data
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.utils import timezone
 from .oracle import Oracle
 
@@ -17,7 +17,7 @@ def singleData(request, schoolName):
 
 #Create new data for a school in collection
 def createData(request):
-	newData = Data(schoolData=request.POST.get('schoolData'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), pubDate=timezone.now())
+	newData = Data(data=request.POST.get('data'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), pubDate=timezone.now())
 	newData.save()
 	return HttpResponse(newData)
 
