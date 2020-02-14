@@ -1,23 +1,23 @@
 from django.http import HttpResponse
-from .models import Array
+from .models import Data
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from .oracle import Oracle
 
 def index(request):
-	latest_array_list = Array.objects.order_by('-pub_date')[:20]
-	output = ', '.join([a.array_num for a in latest_array_list])
+	latest_data_list = Data.objects.order_by('-pubDate')
+	output = ', '.join([a.schoolData for a in latest_data_list])
 	return HttpResponse(output)
 
-def singleArray(request, array_id):
-	array = Array.objects.get(id=array_id)
-	return HttpResponse(array)
+def singleData(request, schoolName):
+	data = Data.objects.get(schoolName=schoolName)
+	return HttpResponse(data)
 
-def createArray(request):
-	newArray = Array(array_num=request.POST.get('array_num'), pub_date=timezone.now())
-	newArray.save()
-	return HttpResponse(newArray)
+def createData(request):
+	newData = Data(schoolData=request.POST.get('schoolData'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), pubDate=timezone.now())
+	newData.save()
+	return HttpResponse(newData)
 
-def stdDev(request, array_id):
-	array = Oracle(array_id)
-	return HttpResponse(array)
+def oracle(request, schoolName):
+	output = Oracle(schoolName)
+	return HttpResponse(output)

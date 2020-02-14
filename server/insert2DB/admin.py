@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Array
+from .models import Data
 # Register your models here.
-admin.site.register(Array)
+admin.site.register(Data)

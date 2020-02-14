@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
 
-class Array(models.Model):
+class Data(models.Model):
 	#GOING TO CHANGE THIS TO FileField when getting actual data
-	array_num = models.CharField(max_length = 200)
-	pub_date = models.DateTimeField('date published')
+	schoolData = models.CharField(max_length = 200)
+	schoolName = models.TextField(max_length = 200)
+	departmentName = models.TextField(max_length = 200)
+	pubDate = models.DateTimeField('date published')
 	def __str__(self):
-		return self.array_num
+		return self.schoolData
 	def was_published_recently(self):
-		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
