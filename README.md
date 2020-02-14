@@ -1,4 +1,4 @@
-# csuOracle-server
+# CSU Oracle Backend
 school project, only backend side
 making the first change
 
