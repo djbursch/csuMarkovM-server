@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Data, markovModel
+from .models import Data
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from .oracle import Oracle
