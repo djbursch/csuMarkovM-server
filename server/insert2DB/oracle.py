@@ -1,4 +1,4 @@
-from .models import Data
+from .models import Data, markovModel
 
 #This is where the matlab code is going to be translated
 #Just created the pipeline so it's ready to receive data
