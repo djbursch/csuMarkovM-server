@@ -1,15 +1,20 @@
 from django.http import HttpResponse
 from django.utils import timezone
-from .models import Data
+from .models import Data, Teacher, dptAdmin, Dean, Chancellor
 from .oracle import oracle, oracleTrain
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.contenttypes.models import ContentType
 
 #Creating a user
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
                                  email = request.POST.get('email'),
                                  password = request.POST.get('password'))
+	#NEED TO GET SPECIAL KEY FROM USER	
+	content_type = ContentType.objects.get_for_model(Dean)
+	permission = Permission.objects.get(content_type=content_type,codename="can_view_school")
+	user.user_permissions.add(permission)
 	success = "User created successfully"
 	return HttpResponse(success)
 
@@ -65,7 +70,8 @@ def uploadData(request):
 		       markovModel = markovModel, 
 		       pubDate = timezone.now())
 	newData.save()
-	return HttpResponse(newData)
+	success = "Your data was saved successfully!"
+	return HttpResponse(success)
 
 #Send a schools data to the oracle
 def testOracle(request):

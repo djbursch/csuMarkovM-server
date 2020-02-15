@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 #Class for saving the data from each school and department
 class Data(models.Model):
@@ -14,3 +15,19 @@ class Data(models.Model):
 	def was_published_recently(self):
 		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
 
+#All the different users
+class Teacher(User):
+	class Meta:
+		permissions = (("is_member", "can_view"),)
+
+class dptAdmin(Teacher):
+        class Meta:
+                permissions = (("can_upload", "Friendly message"),)
+
+class Dean(dptAdmin):
+        class Meta:
+                permissions = (("can_view_school", "Friendly message"),)
+
+class Chancellor(Dean):
+	class Meta:
+		permissions = (("can_view_all", "Friendly message"),)
