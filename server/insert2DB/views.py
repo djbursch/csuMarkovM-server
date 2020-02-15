@@ -1,7 +1,6 @@
 from django.http import HttpResponse
-from .models import Data
-from django.shortcuts import render
 from django.utils import timezone
+from .models import Data
 from .oracle import oracle, oracleTrain
 
 #For getting all items in data collection
@@ -12,7 +11,12 @@ def index(request):
 
 #Getting a single schools data in collection
 def singleData(request, schoolName, departmentName):
-	data = Data.objects.get(schoolName=schoolName, departmentName=departmentName)
+	try:
+	   data = Data.objects.get(schoolName=schoolName, departmentName=departmentName)
+	except Data.DoesNotExist:
+	   data = "Oops! The data you're looking for does not exist."
+	except Data.MultipleObjectsReturned:
+	   data = "Oops! That request returned too many responses."  
 	return HttpResponse(data)
 
 #Upload new data for a school in collection
