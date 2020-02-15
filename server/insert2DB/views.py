@@ -22,7 +22,11 @@ def singleData(request, schoolName, departmentName):
 #Upload new data for a school in collection
 def uploadData(request):
 	markovModel = oracleTrain(request)
-	newData = Data(data=request.POST.get('data'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), markovModel=markovModel, pubDate=timezone.now())
+	newData = Data(data = request.POST.get('data'), 
+		       schoolName = request.POST.get('schoolName'), 
+		       departmentName = request.POST.get('departmentName'), 
+		       markovModel = markovModel, 
+		       pubDate = timezone.now())
 	newData.save()
 	return HttpResponse(newData)
 
