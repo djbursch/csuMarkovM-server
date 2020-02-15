@@ -19,6 +19,15 @@ def singleData(request, schoolName, departmentName):
 	   data = "Oops! That request returned too many responses."  
 	return HttpResponse(data)
 
+#Getting all the departments from one school
+def multipleData(request, schoolName):
+	data = Data.objects.filter(schoolName = schoolName)
+	if not data:
+		output = "There is no school under that name"
+	else:
+	   	output = ', '.join([a.departmentName for a in data])
+	return HttpResponse(output)
+
 #Upload new data for a school in collection
 def uploadData(request):
 	markovModel = oracleTrain(request)

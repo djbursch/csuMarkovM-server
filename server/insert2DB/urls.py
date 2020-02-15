@@ -5,8 +5,11 @@ urlpatterns = [
     #Path for getting all data inputs
     path('', views.index, name='index'),
 
-    #Path for getting data from single school
+    #Path for getting data from department
     path('single/<str:schoolName>/<str:departmentName>/', views.singleData, name = 'singleData'),
+    
+    #Path for getting multiple departments from single school    
+    path('multiple/<str:schoolName>/', views.multipleData, name = 'multipleData'),
     
     #Path for uploading data
     path('upload/', views.uploadData, name = 'uploadData'),
