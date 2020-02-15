@@ -5,11 +5,11 @@ from .oracle import oracle, oracleTrain
 
 #For getting all items in data collection
 def index(request):
-	latest_data_list = Data.objects.order_by('-pubDate')
-	output = ', '.join([a.schoolName for a in latest_data_list])
+	latestDataList = Data.objects.order_by('-pubDate')
+	output = ', '.join([a.schoolName for a in latestDataList])
 	return HttpResponse(output)
 
-#Getting a single schools data in collection
+#Getting a single departments data in collection
 def singleData(request, schoolName, departmentName):
 	try:
 	   data = Data.objects.get(schoolName=schoolName, departmentName=departmentName)
