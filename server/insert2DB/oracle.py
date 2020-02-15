@@ -7,10 +7,12 @@ import random as rm
 
 def Oracle(request):
 	#This is for when the model is already trained
+	data = request.POST.get('data')
 	markovModel = 1
 	return markovModel
 
-def oracleTrain(data):
+def oracleTrain(request):
 	#Do the training calculations in here
+	data = request.POST.get('data')
 	markovModel = 1
 	return markovModel

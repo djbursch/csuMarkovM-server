@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django import forms
-from django.db import *
 
 #Class for saving the actual data from each school
 class Data(models.Model):

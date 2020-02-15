@@ -12,5 +12,5 @@ urlpatterns = [
     path('upload/', views.createData, name = 'createData'),
     
     #Path for sending data to the oracle
-    path('oracle/<str:schoolName>/', views.oracle, name = 'oracle'),
+    path('oracle/', views.oracle, name = 'oracle'),
 ]

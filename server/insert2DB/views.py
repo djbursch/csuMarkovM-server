@@ -17,13 +17,12 @@ def singleData(request, schoolName):
 
 #Create new data for a school in collection
 def createData(request):
-	data = request.POST.get('data')
-	markovModel = oracleTrain(data)
+	markovModel = oracleTrain(request)
 	newData = Data(data=request.POST.get('data'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), markovModel=markovModel, pubDate=timezone.now())
 	newData.save()
 	return HttpResponse(newData)
 
 #Send a schools data to the oracle
-def oracle(request, schoolName):
+def oracle(request):
 	output = Oracle(request)
 	return HttpResponse(output)
