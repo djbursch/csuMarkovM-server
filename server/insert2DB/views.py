@@ -11,12 +11,12 @@ def index(request):
 	return HttpResponse(output)
 
 #Getting a single schools data in collection
-def singleData(request, schoolName):
-	data = Data.objects.get(schoolName=schoolName)
+def singleData(request, schoolName, departmentName):
+	data = Data.objects.get(schoolName=schoolName, departmentName=departmentName)
 	return HttpResponse(data)
 
-#Create new data for a school in collection
-def createData(request):
+#Upload new data for a school in collection
+def uploadData(request):
 	markovModel = oracleTrain(request)
 	newData = Data(data=request.POST.get('data'), schoolName=request.POST.get('schoolName'), departmentName=request.POST.get('departmentName'), markovModel=markovModel, pubDate=timezone.now())
 	newData.save()
