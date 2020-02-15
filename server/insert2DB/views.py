@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from .models import Data
 from django.shortcuts import render
 from django.utils import timezone
-from .oracle import Oracle, oracleTrain
+from .oracle import oracle, oracleTrain
 
 #For getting all items in data collection
 def index(request):
@@ -23,6 +23,6 @@ def uploadData(request):
 	return HttpResponse(newData)
 
 #Send a schools data to the oracle
-def oracle(request):
-	output = Oracle(request)
+def testOracle(request):
+	output = oracle(request)
 	return HttpResponse(output)
