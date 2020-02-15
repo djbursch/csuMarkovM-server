@@ -25,4 +25,7 @@ urlpatterns = [
 
     #Path for logout
     path('logout/', views.userLogout, name = 'userLogout'),
+
+    #Path for logout
+    path('permission/', views.givePerm, name = 'givePerm'),
 ]

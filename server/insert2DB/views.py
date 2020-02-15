@@ -11,11 +11,22 @@ def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
                                  email = request.POST.get('email'),
                                  password = request.POST.get('password'))
-	#NEED TO GET SPECIAL KEY FROM USER	
-	content_type = ContentType.objects.get_for_model(Dean)
-	permission = Permission.objects.get(content_type=content_type,codename="can_view_school")
-	user.user_permissions.add(permission)
 	success = "User created successfully"
+	return HttpResponse(success)
+
+#Give permissions
+def givePerm(request):
+	username = request.POST['username']
+	password = request.POST['password']
+	user = authenticate(request, username=username, password=password)
+	if user is not None:
+		#NEED TO GET SPECIAL KEY FROM USER
+		content_type = ContentType.objects.get_for_model(Dean)
+		permission = Permission.objects.get(content_type=content_type,codename="can_view_school")
+		user.user_permissions.add(permission)
+		success = "Permission given successfully"
+	else:
+		success = "Permission was a failure :("
 	return HttpResponse(success)
 
 #Log the user in for the session
