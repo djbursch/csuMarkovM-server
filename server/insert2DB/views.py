@@ -2,6 +2,34 @@ from django.http import HttpResponse
 from django.utils import timezone
 from .models import Data
 from .oracle import oracle, oracleTrain
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
+#Creating a user
+def createUser(request):
+	user = User.objects.create_user(username = request.POST.get('username'),
+                                 email = request.POST.get('email'),
+                                 password = request.POST.get('password'))
+	success = "User created successfully"
+	return HttpResponse(success)
+
+#Log the user in for the session
+def userLogin(request):
+	username = request.POST['username']
+	password = request.POST['password']
+	user = authenticate(request, username=username, password=password)
+	if user is not None:
+		login(request, user)
+		output = "login was a success!"
+	else:
+		output = "login was a failure :("
+	return HttpResponse(output)
+
+#Log the user out for the session
+def userLogout(request):
+	logout(request)
+	output = "logout was a success!"
+	return HttpResponse(output)
 
 #For getting all items in data collection
 def index(request):
@@ -43,3 +71,4 @@ def uploadData(request):
 def testOracle(request):
 	output = oracle(request)
 	return HttpResponse(output)
+

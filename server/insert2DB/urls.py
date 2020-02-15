@@ -16,4 +16,13 @@ urlpatterns = [
     
     #Path for sending data to the oracle
     path('oracle/', views.testOracle, name = 'testOracle'),
+
+    #Path for creating a user
+    path('createUser/', views.createUser, name = 'createUser'),
+
+    #Path for login
+    path('login/', views.userLogin, name = 'userLogin'),
+
+    #Path for logout
+    path('logout/', views.userLogout, name = 'userLogout'),
 ]
