@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.utils import timezone
-from .models import Data, Teacher, dptAdmin, Dean, Chancellor
-from .oracle import oracle, oracleTrain
-from django.contrib.auth.models import User, Permission, Group
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
+from .models import Data, Teacher, dptAdmin, Dean, Chancellor
+from .oracle import oracle, oracleTrain
+
 
 #Creating a user
 def createUser(request):
