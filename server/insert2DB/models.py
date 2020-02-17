@@ -15,7 +15,7 @@ class Data(models.Model):
 	def was_published_recently(self):
 		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
 
-#All the different users
+#All the different users for access control
 class Teacher(User):
 	class Meta:
 		permissions = (("is_member", "can_view"),)

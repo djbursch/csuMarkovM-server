@@ -9,8 +9,8 @@ from django.contrib.contenttypes.models import ContentType
 #Creating a user
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
-                                 email = request.POST.get('email'),
-                                 password = request.POST.get('password'))
+                                	email = request.POST.get('email'),
+                                	password = request.POST.get('password'))
 	success = "User created successfully"
 	return HttpResponse(success)
 
@@ -22,7 +22,8 @@ def givePerm(request):
 	if user is not None:
 		#NEED TO GET SPECIAL KEY FROM USER
 		content_type = ContentType.objects.get_for_model(Chancellor)
-		all_permissions = Permission.objects.filter(content_type__app_label='insert2DB', content_type__model=content_type)
+		all_permissions = Permission.objects.filter(content_type__app_label='insert2DB', 
+													content_type__model=content_type)
 		user.user_permissions.set(all_permissions)
 		success = "Permission given successfully"
 	else:
@@ -84,7 +85,7 @@ def uploadData(request):
 	success = "Your data was saved successfully!"
 	return HttpResponse(success)
 
-#Send a schools data to the oracle
+#Send a schools test data to the oracle
 def testOracle(request):
 	output = oracle(request)
 	return HttpResponse(output)
