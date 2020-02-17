@@ -21,12 +21,12 @@ class Teacher(User):
 		permissions = (("is_member", "can_view"),)
 
 class dptAdmin(Teacher):
-        class Meta:
-                permissions = (("can_upload", "Friendly message"),)
+    class Meta:
+    	permissions = (("can_upload", "Friendly message"),)
 
 class Dean(dptAdmin):
-        class Meta:
-                permissions = (("can_view_school", "Friendly message"),)
+    class Meta:
+    	permissions = (("can_view_school", "Friendly message"),)
 
 class Chancellor(Dean):
 	class Meta:

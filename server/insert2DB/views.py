@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 from .models import Data, Teacher, dptAdmin, Dean, Chancellor
 from .oracle import oracle, oracleTrain
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Permission, Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
 
@@ -21,9 +21,9 @@ def givePerm(request):
 	user = authenticate(request, username=username, password=password)
 	if user is not None:
 		#NEED TO GET SPECIAL KEY FROM USER
-		content_type = ContentType.objects.get_for_model(Dean)
-		permission = Permission.objects.get(content_type=content_type,codename="can_view_school")
-		user.user_permissions.add(permission)
+		content_type = ContentType.objects.get_for_model(Chancellor)
+		all_permissions = Permission.objects.filter(content_type__app_label='insert2DB', content_type__model=content_type)
+		user.user_permissions.set(all_permissions)
 		success = "Permission given successfully"
 	else:
 		success = "Permission was a failure :("
