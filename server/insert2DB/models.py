@@ -8,7 +8,7 @@ class Data(models.Model):
 	data = models.CharField(max_length = 200)
 	schoolName = models.TextField(max_length = 200)
 	departmentName = models.TextField(max_length = 200)
-	markovModel = models.IntegerField()
+	markovModel = models.CharField(max_length = 200)
 	pubDate = models.DateTimeField('date published')
 	def __str__(self):
 		return self.data
