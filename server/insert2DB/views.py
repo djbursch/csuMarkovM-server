@@ -20,11 +20,14 @@ def givePerm(request):
 	username = request.POST['username']
 	password = request.POST['password']
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-	user = authenticate(request, username = username, password = password)
+	user = authenticate(request, 
+			    username = username, 
+			    password = password)
 	if user is not None:
+		#This content_type is for testing, need to get JSON token for actual verification
 		content_type = ContentType.objects.get_for_model(Chancellor)
 		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
-													content_type__model = content_type)
+							    content_type__model = content_type)
 		user.user_permissions.set(all_permissions)
 		success = "Permission given successfully"
 	else:
@@ -35,7 +38,9 @@ def givePerm(request):
 def userLogin(request):
 	username = request.POST['username']
 	password = request.POST['password']
-	user = authenticate(request, username = username, password = password)
+	user = authenticate(request, 
+	         	    username = username, 
+			    password = password)
 	if user is not None:
 		login(request, user)
 		output = "login was a success!"
@@ -58,7 +63,8 @@ def index(request):
 #Getting a single departments data in collection
 def singleData(request, schoolName, departmentName):
 	try:
-	   data = Data.objects.get(schoolName = schoolName, departmentName = departmentName)
+	   data = Data.objects.get(schoolName = schoolName, 
+	   						   departmentName = departmentName)
 	except Data.DoesNotExist:
 	   data = "Oops! The data you're looking for does not exist."
 	except Data.MultipleObjectsReturned:
@@ -78,10 +84,10 @@ def multipleData(request, schoolName):
 def uploadData(request):
 	markovModel = oracleTrain(request)
 	newData = Data(data = request.POST.get('data'), 
-				   schoolName = request.POST.get('schoolName'), 
-		           departmentName = request.POST.get('departmentName'), 
-		           markovModel = markovModel, 
-		           pubDate = timezone.now())
+		       schoolName = request.POST.get('schoolName'), 
+		       departmentName = request.POST.get('departmentName'), 
+		       markovModel = markovModel, 
+		       pubDate = timezone.now())
 	newData.save()
 	success = "Your data was saved successfully!"
 	return HttpResponse(success)
