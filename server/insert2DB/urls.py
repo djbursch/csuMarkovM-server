@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     #Path for getting all data inputs
@@ -28,4 +29,7 @@ urlpatterns = [
 
     #Path for giving permission
     path('permission/', views.givePerm, name = 'givePerm'),
+
+    #Path for home
+    path('home/', TemplateView.as_view(template_name="home.html"), name = "home")
 ]
