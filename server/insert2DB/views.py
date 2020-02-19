@@ -64,7 +64,7 @@ def index(request):
 def singleData(request, schoolName, departmentName):
 	try:
 	   data = Data.objects.get(schoolName = schoolName, 
-	   						   departmentName = departmentName)
+	   			   departmentName = departmentName)
 	except Data.DoesNotExist:
 	   data = "Oops! The data you're looking for does not exist."
 	except Data.MultipleObjectsReturned:
