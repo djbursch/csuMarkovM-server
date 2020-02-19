@@ -31,5 +31,5 @@ urlpatterns = [
     path('permission/', views.givePerm, name = 'givePerm'),
 
     #Path for home
-    path('home/', TemplateView.as_view(template_name="Csu_FE_Project/index.html"), name = "index")
+    path('home/', TemplateView.as_view(template_name="home.html"), name = "home")
 ]
