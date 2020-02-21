@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
-from .models import Data, Teacher, dptAdmin, Dean, Chancellor
+from .models import Data, Invite, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
 from .markov import markov, markovTrain
 from .pso import particleSwarmOptimization
 
@@ -11,7 +11,13 @@ from .pso import particleSwarmOptimization
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
                                 	email = request.POST.get('email'),
-                                	password = request.POST.get('password'))
+                                	password = request.POST.get('password'),
+                                	invitecode = request.POST.get('invitecode'))
+	success = "User created successfully"
+	return HttpResponse(success)
+
+def inviteUser(request):
+	#ALLOWING ADMIN TO INVITE USERS TO SERVER
 	success = "User created successfully"
 	return HttpResponse(success)
 
@@ -25,7 +31,7 @@ def givePerm(request):
 			    password = password)
 	if user is not None:
 		#This content_type is for testing, need to get JSON token for actual verification
-		content_type = ContentType.objects.get_for_model(Chancellor)
+		content_type = ContentType.objects.get_for_model(CollegeConsumer)
 		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
 							    content_type__model = content_type)
 		user.user_permissions.set(all_permissions)
@@ -43,6 +49,7 @@ def userLogin(request):
 			    password = password)
 	if user is not None:
 		login(request, user)
+		#GET JSON TOKEN HERE
 		output = "login was a success!"
 	else:
 		output = "login was a failure"
@@ -81,7 +88,8 @@ def multipleData(request, schoolName):
 	return HttpResponse(output)
 
 #Upload new data for a school in collection
-def uploadData(request):
+def uploadFile(request):
+	#turn file into json
 	pso = particleSwarmOptimization(request)
 	markovModel = markovTrain(pso)
 	newData = Data(data = request.POST.get('data'), 
@@ -94,7 +102,7 @@ def uploadData(request):
 	return HttpResponse(success)
 
 #Send a schools test data to the oracle
-def testMarkov(request):
+def testData(request):
 	output = markov(request)
 	return HttpResponse(output)
 

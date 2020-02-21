@@ -13,10 +13,10 @@ urlpatterns = [
     path('multiple/<str:schoolName>/', views.multipleData, name = 'multipleData'),
     
     #Path for uploading data
-    path('upload/', views.uploadData, name = 'uploadData'),
+    path('upload/', views.uploadFile, name = 'uploadFile'),
     
     #Path for sending data to the oracle
-    path('markov/', views.testMarkov, name = 'testMarkov'),
+    path('markov/', views.testData, name = 'testData'),
 
     #Path for creating a user
     path('createUser/', views.createUser, name = 'createUser'),
