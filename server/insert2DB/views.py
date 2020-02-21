@@ -45,7 +45,7 @@ def userLogin(request):
 		login(request, user)
 		output = "login was a success!"
 	else:
-		output = "login was a failure :("
+		output = "login was a failure"
 	return HttpResponse(output)
 
 #Log the user out for the session
