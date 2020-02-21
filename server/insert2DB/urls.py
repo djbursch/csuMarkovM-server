@@ -16,7 +16,7 @@ urlpatterns = [
     path('upload/', views.uploadData, name = 'uploadData'),
     
     #Path for sending data to the oracle
-    path('oracle/', views.testOracle, name = 'testOracle'),
+    path('markov/', views.testMarkov, name = 'testMarkov'),
 
     #Path for creating a user
     path('createUser/', views.createUser, name = 'createUser'),

@@ -4,8 +4,8 @@ from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.contenttypes.models import ContentType
 from .models import Data, Teacher, dptAdmin, Dean, Chancellor
-from .oracle import oracle, oracleTrain
-
+from .markov import markov, markovTrain
+from .pso import particleSwarmOptimization
 
 #Creating a user
 def createUser(request):
@@ -82,7 +82,8 @@ def multipleData(request, schoolName):
 
 #Upload new data for a school in collection
 def uploadData(request):
-	markovModel = oracleTrain(request)
+	pso = particleSwarmOptimization(request)
+	markovModel = markovTrain(pso)
 	newData = Data(data = request.POST.get('data'), 
 		       schoolName = request.POST.get('schoolName'), 
 		       departmentName = request.POST.get('departmentName'), 
@@ -93,7 +94,7 @@ def uploadData(request):
 	return HttpResponse(success)
 
 #Send a schools test data to the oracle
-def testOracle(request):
-	output = oracle(request)
+def testMarkov(request):
+	output = markov(request)
 	return HttpResponse(output)
 
