@@ -10,6 +10,9 @@ urlpatterns = [
     #Path for getting all data inputs
     url('home/', views.HomePageView.as_view()),
 
+    #Path for getting all data inputs
+    url('', views.SignUpView.as_view()),
+
     #Path for getting data from department
     path('single/<str:schoolName>/<str:departmentName>/', views.singleData, name = 'singleData'),
     

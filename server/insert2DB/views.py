@@ -17,6 +17,10 @@ class HomePageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
+class SignUpView(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+
 #Creating a user
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
