@@ -1,10 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.views.generic.base import TemplateView
+from rest_framework import routers
+from django.conf.urls import url
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
     #Path for getting all data inputs
-    path('', views.index, name='index'),
+    url('home/', views.HomePageView.as_view()),
 
     #Path for getting data from department
     path('single/<str:schoolName>/<str:departmentName>/', views.singleData, name = 'singleData'),
@@ -30,6 +34,4 @@ urlpatterns = [
     #Path for giving permission
     path('permission/', views.givePerm, name = 'givePerm'),
 
-    #Path for home
-    path('home/', TemplateView.as_view(template_name="home.html"), name = "home")
 ]

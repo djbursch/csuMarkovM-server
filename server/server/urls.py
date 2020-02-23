@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
+from django.views.generic.base import TemplateView
+from insert2DB.views import *
 
 urlpatterns = [
-    path('insert2DB/', include('insert2DB.urls')),
+    url(r'^', include('insert2DB.urls')),
     path('admin/', admin.site.urls),
 ]
