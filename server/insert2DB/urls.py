@@ -7,11 +7,14 @@ from django.conf.urls import url
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    #Path for getting all data inputs
+    #Path for home
     url('home/', views.HomePageView.as_view()),
+  
+    #path for charts
+    url('charts/', views.ChartsView.as_view()),
 
-    #Path for getting all data inputs
-    url('', views.SignUpView.as_view()),
+    #Path for signup
+    url('signup/', views.SignUpView.as_view()),
 
     #Path for getting data from department
     path('single/<str:schoolName>/<str:departmentName>/', views.singleData, name = 'singleData'),
@@ -26,7 +29,7 @@ urlpatterns = [
     path('markov/', views.testData, name = 'testData'),
 
     #Path for creating a user
-    path('createUser/', views.createUser, name = 'createUser'),
+    #url('createUser/', views.createUser, name = createUser),
 
     #Path for login
     path('login/', views.userLogin, name = 'userLogin'),

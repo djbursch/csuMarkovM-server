@@ -13,13 +13,19 @@ from rest_framework.utils import json
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
+
 class HomePageView(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+
+class ChartsView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
 class SignUpView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
+
 
 #Creating a user
 def createUser(request):
