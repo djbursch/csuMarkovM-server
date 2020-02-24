@@ -18,8 +18,14 @@ from django.urls import include, path
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
 from insert2DB.views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     url(r'^', include('insert2DB.urls')),
     path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

@@ -12,7 +12,8 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from django.shortcuts import render
 from django.views.generic import TemplateView
-
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
@@ -28,11 +29,11 @@ class SignUpView(TemplateView):
 
 
 #Creating a user
+@api_view(["POST"])
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
                                 	email = request.POST.get('email'),
-                                	password = request.POST.get('password'),
-                                	invitecode = request.POST.get('invitecode'))
+                                	password = request.POST.get('password'))
 	success = "User created successfully"
 	return HttpResponse(success)
 
@@ -42,6 +43,8 @@ def inviteUser(request):
 	return HttpResponse(success)
 
 #Give permissions
+@csrf_exempt
+@api_view(['POST'])
 def givePerm(request):
 	username = request.POST['username']
 	password = request.POST['password']
@@ -51,14 +54,15 @@ def givePerm(request):
 			    password = password)
 	if user is not None:
 		#This content_type is for testing, need to get JSON token for actual verification
+		refresh = RefreshToken.for_user(user)
 		content_type = ContentType.objects.get_for_model(CollegeConsumer)
 		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
 							    content_type__model = content_type)
 		user.user_permissions.set(all_permissions)
-		success = "Permission given successfully"
+		return HttpResponse("success")
 	else:
 		success = "Permission was a failure :("
-	return HttpResponse(success)
+		return HttpResponse(success)
 
 #Log the user in for the session
 @api_view(["POST"])
@@ -70,7 +74,8 @@ def userLogin(request):
           if user is not None:
               login(request, user)
               #GET JSON TOKEN HERE
-              output = "login was a success!"
+              token = get_token(user)
+              output = token
               return JsonResponse("Success: " + output)
     except ValueError as e:
               return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
