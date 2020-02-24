@@ -14,8 +14,12 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated 
 
-class HomePageView(TemplateView):
+class HomePageView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -74,7 +78,7 @@ def userLogin(request):
           if user is not None:
               login(request, user)
               #GET JSON TOKEN HERE
-              token = get_token(user)
+              token = drf_create_token(user)
               output = token
               return JsonResponse("Success: " + output)
     except ValueError as e:
