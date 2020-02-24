@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     #Path for home
-    url('home/', views.HomePageView.as_view()),
+    url(r'^home/$', views.HomePageView.as_view()),
   
     #path for charts
     url('charts/', views.ChartsView.as_view()),

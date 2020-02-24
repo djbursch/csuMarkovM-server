@@ -61,19 +61,19 @@ def givePerm(request):
 	return HttpResponse(success)
 
 #Log the user in for the session
+@api_view(["POST"])
 def userLogin(request):
-	username = request.POST['username']
-	password = request.POST['password']
-	user = authenticate(request, 
-	         	    username = username, 
-			    password = password)
-	if user is not None:
-		login(request, user)
-		#GET JSON TOKEN HERE
-		output = "login was a success!"
-	else:
-		output = "login was a failure"
-	return HttpResponse(output)
+    try:
+          username = request.POST['username']
+          password = request.POST['password']
+          user = authenticate(request,username = username,password = password)
+          if user is not None:
+              login(request, user)
+              #GET JSON TOKEN HERE
+              output = "login was a success!"
+              return JsonResponse("Success: " + output)
+    except ValueError as e:
+              return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
 
 #Log the user out for the session
 def userLogout(request):
