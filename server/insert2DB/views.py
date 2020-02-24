@@ -17,9 +17,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated 
 
-class HomePageView(APIView):
-    permission_classes = (IsAuthenticated,)
-
+class HomePageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -31,6 +29,9 @@ class SignUpView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
+class LoginView(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
 
 #Creating a user
 @api_view(["POST"])
@@ -58,7 +59,6 @@ def givePerm(request):
 			    password = password)
 	if user is not None:
 		#This content_type is for testing, need to get JSON token for actual verification
-		refresh = RefreshToken.for_user(user)
 		content_type = ContentType.objects.get_for_model(CollegeConsumer)
 		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
 							    content_type__model = content_type)
@@ -90,31 +90,39 @@ def userLogout(request):
 	output = "logout was a success!"
 	return HttpResponse(output)
 
-#For getting all items in data collection
-def index(request):
-	latestDataList = Data.objects.order_by('-pubDate')
-	output = ', '.join([a.schoolName for a in latestDataList])
-	return HttpResponse(output)
+class index(APIView):
+    permission_classes = (IsAuthenticated,)
 
-#Getting a single departments data in collection
-def singleData(request, schoolName, departmentName):
-	try:
-	   data = Data.objects.get(schoolName = schoolName, 
-	   			   departmentName = departmentName)
-	except Data.DoesNotExist:
-	   data = "Oops! The data you're looking for does not exist."
-	except Data.MultipleObjectsReturned:
-	   data = "Oops! That request returned too many responses. Probs change once done testing"  
-	return HttpResponse(data)
+    def get(self, request):
+        latestDataList = Data.objects.order_by('-pubDate')
+        output = ', '.join([a.schoolName for a in latestDataList])
+        return Response(output)
 
-#Getting all the departments from one school
-def multipleData(request, schoolName):
-	data = Data.objects.filter(schoolName = schoolName)
-	if not data:
-		output = "There is no school under that name"
-	else:
-	   	output = ', '.join([a.departmentName for a in data])
-	return HttpResponse(output)
+class singleData(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, schoolName, departmentName):
+        try:
+           data = Data.objects.get(schoolName = schoolName, departmentName = departmentName)
+           output = str(data)
+           return Response(output)
+        except Data.DoesNotExist:
+           data = "Oops! The data you're looking for does not exist."
+           return Response(data)
+        except Data.MultipleObjectsReturned:
+           data = "Oops! That request returned too many responses."
+           return Response(data)
+
+class multipleData(APIView):
+      permission_classes = (IsAuthenticated,)
+
+      def get(self, request, schoolName):
+        data = Data.objects.filter(schoolName = schoolName)
+        if not data:
+                output = "There is no school under that name"
+        else:
+                output = ', '.join([a.departmentName for a in data])
+        return HttpResponse(output)
 
 #Upload new data for a school in collection
 def uploadFile(request):

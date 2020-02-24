@@ -8,7 +8,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    path('login/', obtain_auth_token, name='api_token_auth'),    
+    path('index/', views.index.as_view(), name='index'),
+
+    #path for charts
+    url('login/', views.LoginView.as_view()),
 
     #Path for home
     url(r'^home/$', views.HomePageView.as_view()),
@@ -20,10 +23,10 @@ urlpatterns = [
     url('signup/', views.SignUpView.as_view()),
 
     #Path for getting data from department
-    path('single/<str:schoolName>/<str:departmentName>/', views.singleData, name = 'singleData'),
+    path('single/<str:schoolName>/<str:departmentName>/', views.singleData.as_view(), name = 'singleData'),
     
     #Path for getting multiple departments from single school    
-    path('multiple/<str:schoolName>/', views.multipleData, name = 'multipleData'),
+    path('multiple/<str:schoolName>/', views.multipleData.as_view(), name = 'multipleData'),
     
     #Path for uploading data
     path('upload/', views.uploadFile, name = 'uploadFile'),
@@ -33,9 +36,6 @@ urlpatterns = [
 
     #Path for creating a user
     url('createUser/', views.createUser, name = 'createUser'),
-
-    #Path for login
-    #path('login/', views.userLogin, name = 'userLogin'),
 
     #Path for logout
     path('logout/', views.userLogout, name = 'userLogout'),
