@@ -11,10 +11,10 @@ urlpatterns = [
     path('index/', views.index.as_view(), name='index'),
 
     #path for charts
-    url('login/', views.LoginView.as_view()),
+    url('register/', views.LoginView.as_view()),
 
     #Path for home
-    url(r'^home/$', views.HomePageView.as_view()),
+    url('home/', views.HomePageView.as_view()),
   
     #path for charts
     url('charts/', views.ChartsView.as_view()),
