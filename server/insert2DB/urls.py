@@ -35,7 +35,7 @@ urlpatterns = [
     path('markov/', views.testData, name = 'testData'),
 
     #Path for creating a user
-    url('createUser/', views.createUser, name = 'createUser'),
+    url('users/register/', views.createUser, name = 'createUser'),
 
     #Path for logout
     path('logout/', views.userLogout, name = 'userLogout'),

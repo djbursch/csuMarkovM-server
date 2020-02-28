@@ -1784,7 +1784,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "onCreatePost",
         value: function onCreatePost(postData) {
           // Send Http request
-          this.http.post('/api/token/', postData).subscribe(function (responseData) {
+          this.http.post('/createUser', postData).subscribe(function (responseData) {
             console.log(responseData);
           });
         }

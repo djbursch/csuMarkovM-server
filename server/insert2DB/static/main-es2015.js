@@ -1057,7 +1057,7 @@ let LoginComponent = class LoginComponent {
     onCreatePost(postData) {
         // Send Http request
         this.http
-            .post('/api/token/', postData)
+            .post('/createUser', postData)
             .subscribe(responseData => {
             console.log(responseData);
         });
