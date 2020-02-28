@@ -29,7 +29,7 @@ class SignUpView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class LoginView(TemplateView):
+class RegisterView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
