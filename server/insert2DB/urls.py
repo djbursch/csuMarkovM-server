@@ -20,7 +20,7 @@ urlpatterns = [
     url('charts/', views.ChartsView.as_view()),
 
     #Path for signup
-    url('signup/', views.SignUpView.as_view()),
+    url('login/', views.LoginView.as_view()),
 
     #Path for getting data from department
     path('single/<str:schoolName>/<str:departmentName>/', views.singleData.as_view(), name = 'singleData'),

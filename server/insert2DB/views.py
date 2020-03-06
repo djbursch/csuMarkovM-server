@@ -13,9 +13,12 @@ from rest_framework.utils import json
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, Token
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated 
+from rest_framework.permissions import IsAuthenticated
+import jwt,json
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView 
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
@@ -25,7 +28,7 @@ class ChartsView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class SignUpView(TemplateView):
+class LoginView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -69,27 +72,38 @@ def givePerm(request):
 		success = "Permission was a failure :("
 		return HttpResponse(success)
 
+'''
 #Log the user in for the session
 @api_view(["POST"])
 def userLogin(request):
-    try:
-          username = request.POST['username']
-          password = request.POST['password']
+          username = request.POST.get('username')
+          password = request.POST.get('password')
           user = authenticate(request,username = username,password = password)
           if user is not None:
-              login(request, user)
-              #GET JSON TOKEN HERE
-              token = drf_create_token(user)
-              output = token
-              return JsonResponse("Success: " + output)
-    except ValueError as e:
-              return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+                payload = {
+                  'id': user.id,
+                  'email': user.email,
+                }
+                token = Token(user, 5)
+                token['name'] = user.name
+
+                return HttpResponse(
+                json.dumps(token),
+                status=200,
+                content_type="application/json"
+                )
+          else:
+            	return Response(
+                json.dumps({'Error': "Invalid credentials"}),
+                status=400,
+                content_type="application/json")
+'''
 
 #Log the user out for the session
 def userLogout(request):
-	logout(request)
-	output = "logout was a success!"
-	return HttpResponse(output)
+    logout(request)
+    output = "logout was a success!"
+    return HttpResponse(output)
 
 class index(APIView):
     permission_classes = (IsAuthenticated,)
@@ -130,9 +144,9 @@ def uploadFile(request):
 	#turn file into json
 	pso = particleSwarmOptimization(request)
 	markovModel = markovTrain(pso)
-	newData = Data(data = request.POST.get('data'), 
-		       schoolName = request.POST.get('schoolName'), 
-		       departmentName = request.POST.get('departmentName'), 
+	newData = Data(data = request.data.get('data'), 
+		       schoolName = request.data.get('schoolName'), 
+		       departmentName = request.data.get('departmentName'), 
 		       markovModel = markovModel, 
 		       pubDate = timezone.now())
 	newData.save()
