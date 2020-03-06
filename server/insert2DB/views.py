@@ -37,9 +37,9 @@ class RegisterView(TemplateView):
 @csrf_exempt
 @api_view(["POST"])
 def createUser(request):
-  user = User.objects.create_user(username = data.get('username'),
-                                	email = data.get('email'),
-                                	password = data.get('password'))
+  user = User.objects.create_user(username = request.data.get('username'),
+                                	email = request.data.get('email'),
+                                	password = request.data.get('password'))
   success = "User created successfully"
   return HttpResponse(success)
 
