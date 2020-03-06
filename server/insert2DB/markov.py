@@ -67,7 +67,7 @@ def markovTrain(pso):
 
 		y[t]=sum(x[:,t]) #number_of_students_enrolled
 		graduated[t]=sum(x_advance[n+1,1:t])
-		number_of_units_attempted[t]=(1-h)*(y(t)-sum(x_slowed[:,t]))*15+(h)*sum((x[:,t]-x_slowed[:,t])*COEUnits)
+		number_of_units_attempted[t]=(1-h)*(y(t)-sum(x_slowed[:,t]))*15+(h)*sum((x[:,t]-x_slowed[:,t])*np.transpose(COEUnits))
 		number_of_units_DFWed[t]=(1-h)*sum(x_DFW[:,t]*15)+h*sum(x_DFW[:,t]*COEUnits)
 
 
@@ -107,8 +107,8 @@ def markovTrain(pso):
         
 			y[t]=sum(x[:,t]) #number_of_students_enrolled
 			graduated[t]=sum(x_advance[n+1,1:t])
-			number_of_units_attempted[t]=(1-h)*(y(t)-sum(x_slowed[:,t]))*15+(h)*sum((x[:,t]-x_slowed[:,t])*COEUnits) ###NEED TO FIGURE OUT TRANSPOSE
-			number_of_units_DFWed[t]=(1-h)*sum(x_DFW[:,t]*15)+h*sum(x_DFW[:,t]*COEUnits)
+			number_of_units_attempted[t]=(1-h)*(y(t)-sum(x_slowed[:,t]))*15+(h)*sum((x[:,t]-x_slowed[:,t])*np.transpose(COEUnits)) ###NEED TO FIGURE OUT TRANSPOSE
+			number_of_units_DFWed[t]=(1-h)*sum(x_DFW[:,t]*15)+h*sum(x_DFW[:,t]*np.transpose(COEUnits))
 
 
 

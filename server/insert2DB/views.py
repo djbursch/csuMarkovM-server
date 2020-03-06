@@ -34,6 +34,7 @@ class RegisterView(TemplateView):
         return render(request, 'index.html', context=None)
 
 #Creating a user
+@csrf_exempt
 @api_view(["POST"])
 def createUser(request):
 	user = User.objects.create_user(username = request.POST.get('username'),
