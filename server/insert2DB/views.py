@@ -37,11 +37,11 @@ class RegisterView(TemplateView):
 @csrf_exempt
 @api_view(["POST"])
 def createUser(request):
-	user = User.objects.create_user(username = request.POST.get('username'),
-                                	email = request.POST.get('email'),
-                                	password = request.POST.get('password'))
-	success = "User created successfully"
-	return HttpResponse(success)
+  user = User.objects.create_user(username = data.get('username'),
+                                	email = data.get('email'),
+                                	password = data.get('password'))
+  success = "User created successfully"
+  return HttpResponse(success)
 
 def inviteUser(request):
 	#ALLOWING ADMIN TO INVITE USERS TO SERVER

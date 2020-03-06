@@ -192,148 +192,23 @@ var ErrorInterceptor = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/_helpers/fake-backend.ts":
-/*!******************************************!*\
-  !*** ./src/app/_helpers/fake-backend.ts ***!
-  \******************************************/
-/*! exports provided: FakeBackendInterceptor, fakeBackendProvider */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FakeBackendInterceptor", function() { return FakeBackendInterceptor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fakeBackendProvider", function() { return fakeBackendProvider; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-
-
-
-
-
-// array in local storage for registered users
-var users = JSON.parse(localStorage.getItem('users')) || [];
-var FakeBackendInterceptor = /** @class */ (function () {
-    function FakeBackendInterceptor() {
-    }
-    FakeBackendInterceptor.prototype.intercept = function (request, next) {
-        var url = request.url, method = request.method, headers = request.headers, body = request.body;
-        // wrap in delayed observable to simulate server api call
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(handleRoute))
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["materialize"])()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["delay"])(500))
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["dematerialize"])());
-        function handleRoute() {
-            switch (true) {
-                case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
-                case url.endsWith('/users/register') && method === 'POST':
-                    return register();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
-                case url.match(/\/users\/\d+$/) && method === 'DELETE':
-                    return deleteUser();
-                default:
-                    // pass through any requests not handled above
-                    return next.handle(request);
-            }
-        }
-        // route functions
-        function authenticate() {
-            var username = body.username, password = body.password;
-            var user = users.find(function (x) { return x.username === username && x.password === password; });
-            if (!user)
-                return error('Username or password is incorrect');
-            return ok({
-                id: user.id,
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                token: 'fake-jwt-token'
-            });
-        }
-        function register() {
-            var user = body;
-            if (users.find(function (x) { return x.username === user.username; })) {
-                return error('Username "' + user.username + '" is already taken');
-            }
-            user.id = users.length ? Math.max.apply(Math, users.map(function (x) { return x.id; })) + 1 : 1;
-            users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
-            return ok();
-        }
-        function getUsers() {
-            if (!isLoggedIn())
-                return unauthorized();
-            return ok(users);
-        }
-        function deleteUser() {
-            if (!isLoggedIn())
-                return unauthorized();
-            users = users.filter(function (x) { return x.id !== idFromUrl(); });
-            localStorage.setItem('users', JSON.stringify(users));
-            return ok();
-        }
-        // helper functions
-        function ok(body) {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]({ status: 200, body: body }));
-        }
-        function error(message) {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])({ error: { message: message } });
-        }
-        function unauthorized() {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])({ status: 401, error: { message: 'Unauthorised' } });
-        }
-        function isLoggedIn() {
-            return headers.get('Authorization') === 'Bearer fake-jwt-token';
-        }
-        function idFromUrl() {
-            var urlParts = url.split('/');
-            return parseInt(urlParts[urlParts.length - 1]);
-        }
-    };
-    FakeBackendInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
-    ], FakeBackendInterceptor);
-    return FakeBackendInterceptor;
-}());
-
-var fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
-    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
-    useClass: FakeBackendInterceptor,
-    multi: true
-};
-
-
-/***/ }),
-
 /***/ "./src/app/_helpers/index.ts":
 /*!***********************************!*\
   !*** ./src/app/_helpers/index.ts ***!
   \***********************************/
-/*! exports provided: FakeBackendInterceptor, fakeBackendProvider, AuthGuard, JwtInterceptor, ErrorInterceptor */
+/*! exports provided: AuthGuard, JwtInterceptor, ErrorInterceptor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fake_backend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fake-backend */ "./src/app/_helpers/fake-backend.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FakeBackendInterceptor", function() { return _fake_backend__WEBPACK_IMPORTED_MODULE_0__["FakeBackendInterceptor"]; });
+/* harmony import */ var _auth_guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth.guard */ "./src/app/_helpers/auth.guard.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return _auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fakeBackendProvider", function() { return _fake_backend__WEBPACK_IMPORTED_MODULE_0__["fakeBackendProvider"]; });
+/* harmony import */ var _jwt_interceptor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./jwt.interceptor */ "./src/app/_helpers/jwt.interceptor.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JwtInterceptor", function() { return _jwt_interceptor__WEBPACK_IMPORTED_MODULE_1__["JwtInterceptor"]; });
 
-/* harmony import */ var _auth_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.guard */ "./src/app/_helpers/auth.guard.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return _auth_guard__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]; });
-
-/* harmony import */ var _jwt_interceptor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./jwt.interceptor */ "./src/app/_helpers/jwt.interceptor.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JwtInterceptor", function() { return _jwt_interceptor__WEBPACK_IMPORTED_MODULE_2__["JwtInterceptor"]; });
-
-/* harmony import */ var _error_interceptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error.interceptor */ "./src/app/_helpers/error.interceptor.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptor", function() { return _error_interceptor__WEBPACK_IMPORTED_MODULE_3__["ErrorInterceptor"]; });
-
+/* harmony import */ var _error_interceptor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./error.interceptor */ "./src/app/_helpers/error.interceptor.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptor", function() { return _error_interceptor__WEBPACK_IMPORTED_MODULE_2__["ErrorInterceptor"]; });
 
 
 
@@ -595,7 +470,7 @@ var UserService = /** @class */ (function () {
         return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + "/users");
     };
     UserService.prototype.register = function (user) {
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + "/users/register", user);
+        return this.http.post("http://localhost:8000/createUser/", user);
     };
     UserService.prototype.delete = function (id) {
         return this.http.delete(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + "/users/" + id);
@@ -641,18 +516,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
+    // user subscr to db
     function AppComponent(router, authenticationService) {
         var _this = this;
         this.router = router;
         this.authenticationService = authenticationService;
         this.authenticationService.currentUser.subscribe(function (x) { return _this.currentUser = x; });
     }
+    //botton that when pressed on the application, logs the user out and redirects the app to the login website
     AppComponent.prototype.logout = function () {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({ selector: 'app-root', template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html") }),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({ selector: 'app', template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html") }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _services__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"]])
     ], AppComponent);
@@ -678,8 +555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_helpers */ "./src/app/_helpers/index.ts");
-/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_helpers */ "./src/app/_helpers/index.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _home__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./home */ "./src/app/home/index.ts");
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./login */ "./src/app/login/index.ts");
@@ -698,7 +575,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+//import {ChartsComponent} from './'
 // import { BarChartComponent } from './charts/bar-chart';
 // import { LineChartComponent } from './charts/line-chart';
 var AppModule = /** @class */ (function () {
@@ -710,7 +587,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _app_routing__WEBPACK_IMPORTED_MODULE_6__["appRoutingModule"]
+                _app_routing__WEBPACK_IMPORTED_MODULE_5__["appRoutingModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
@@ -720,10 +597,8 @@ var AppModule = /** @class */ (function () {
                 _components__WEBPACK_IMPORTED_MODULE_11__["AlertComponent"],
             ],
             providers: [
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_5__["JwtInterceptor"], multi: true },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_5__["ErrorInterceptor"], multi: true },
-                // provider used to create fake backend
-                _helpers__WEBPACK_IMPORTED_MODULE_5__["fakeBackendProvider"]
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_6__["JwtInterceptor"], multi: true },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_6__["ErrorInterceptor"], multi: true },
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
@@ -760,7 +635,7 @@ var routes = [
     { path: '', component: _home__WEBPACK_IMPORTED_MODULE_1__["HomeComponent"], canActivate: [_helpers__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] },
     { path: 'login', component: _login__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: 'register', component: _register__WEBPACK_IMPORTED_MODULE_3__["RegisterComponent"] },
-    // { path: 'Charts', component: ChartsComponent },
+    //{ path: 'Charts', component: ChartsComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -1060,6 +935,7 @@ var RegisterComponent = /** @class */ (function () {
             .subscribe(function (data) {
             _this.alertService.success('Registration successful', true);
             _this.router.navigate(['/login'], { queryParams: { registered: true } });
+            console.log(_this.registerForm.value);
         }, function (error) {
             _this.alertService.error(error);
             _this.loading = false;
@@ -1095,7 +971,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    apiUrl: 'http://localhost:4000'
+    apiUrl: 'http://localhost:8000'
 };
 /*
  * For easier debugging in development mode, you can import the following file
