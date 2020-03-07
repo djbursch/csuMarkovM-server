@@ -11,7 +11,7 @@ def markov(request):
 	markovModel = 1
 	return markovModel
 
-def markovTrain(pso):
+def markovTrain(Request):
 	#Do the training calculations in here
 	data = request.POST.get('data')
 	markovModel = 1
@@ -24,9 +24,10 @@ def markovTrain(pso):
 	q=0 #system shock trigger, if q=1, add shock semester 15, if q=0 just steady state
 
 	#Calibration Factors:
+	incomingStudents = request.data.get('students')
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
-	incoming=710*[0,1,0,0,0,0,0,0,0,0] #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
+	incoming=incomingStudents*[0,1,0,0,0,0,0,0,0,0] #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
 	sigma=0.02*[0,3.6,1,1,1,1,1,1,1,1] #University withdrawal rate (1-retained)for each class at time k
 	beta=0.05*ones #DFW rate for each class at time k (need to repeat)
 	alpha=0.15*ones #slowing factor to account for students taking less than 15 units per semester (need additional semester to complete class)

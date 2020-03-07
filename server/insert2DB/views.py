@@ -36,6 +36,14 @@ class RegisterView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
+#getting users
+class users(TemplateView):
+  def get(self, request, **kwargs):
+        users = User.objects.all()
+        context = {'allusers': users}
+        print(users)
+        return render(request, 'index.html', context)
+
 #Creating a user
 @csrf_exempt
 @api_view(["POST"])
@@ -155,6 +163,6 @@ def uploadFile(request):
 
 #Send a schools test data to the oracle
 def testData(request):
-	output = markov(request)
+	output = markovTrain(request)
 	return HttpResponse(output)
 

@@ -10,6 +10,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('index/', views.index.as_view(), name='index'),
 
+    path('users', views.users.as_view()),
+
     #path for charts
     url('register/', views.RegisterView.as_view()),
 
@@ -35,7 +37,7 @@ urlpatterns = [
     path('markov/', views.testData, name = 'testData'),
 
     #Path for creating a user
-    url('createUser/', views.createUser, name = 'createUser'),
+    url('createUser', views.createUser, name = 'createUser'),
 
     #Path for logout
     path('logout/', views.userLogout, name = 'userLogout'),
