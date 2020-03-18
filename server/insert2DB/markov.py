@@ -2,7 +2,7 @@ from .models import Data
 import numpy as np
 import random as rm
 from django.http import HttpResponse
-import pandas as pd
+
 
 
 #This is where the matlab code is going to be translated
@@ -121,8 +121,7 @@ def markovTrain(incomingStudents):
 		graduating1=graduating;
 		number_of_units_attempted1=number_of_units_attempted;
 
-
-	print(graduating)
-	return time, y[0,:], graduating
+	data = [time, y[0,:], graduating]
+	return data
 
 

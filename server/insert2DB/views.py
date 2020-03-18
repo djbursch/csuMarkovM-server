@@ -167,7 +167,5 @@ class testData(APIView):
 #Send a schools test data to the oracle
   def get(self, request, incomingStudents):
     data = markovTrain(incomingStudents)
-    print(data)
-    success = "it works"
-    return HttpResponse(data)
+    return Response(data)
 
