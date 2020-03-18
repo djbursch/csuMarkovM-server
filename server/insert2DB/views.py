@@ -19,6 +19,14 @@ from rest_framework.permissions import IsAuthenticated
 import jwt,json
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView 
+import matplotlib as pl
+pl.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import io
+
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
@@ -41,7 +49,6 @@ class users(TemplateView):
   def get(self, request, **kwargs):
         users = User.objects.all()
         context = {'allusers': users}
-        print(users)
         return render(request, 'index.html', context)
 
 #Creating a user
@@ -161,8 +168,11 @@ def uploadFile(request):
 	success = "Your data was saved successfully!"
 	return HttpResponse(success)
 
+class testData(APIView):
 #Send a schools test data to the oracle
-def testData(request):
-	output = markovTrain(request)
-	return HttpResponse(output)
+  def get(self, request, incomingStudents):
+    data = markovTrain(incomingStudents)
+    print(data)
+    success = "it works"
+    return HttpResponse(data)
 

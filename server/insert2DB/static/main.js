@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"message\" [ngClass]=\"message.cssClass\">{{message.text}}</div>"
+module.exports = "<div *ngIf=\"message\" [ngClass]=\"message.cssClass\">{{message.text}}</div>\n"
 
 /***/ }),
 
@@ -466,7 +466,7 @@ var UserService = /** @class */ (function () {
         this.http = http;
     }
     UserService.prototype.getAll = function () {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + "/users");
+        return this.http.get("http://localhost:8000/users");
     };
     UserService.prototype.register = function (user) {
         return this.http.post("http://localhost:8000/createUser", user);
@@ -650,7 +650,7 @@ var appRoutingModule = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModul
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Hi there {{currentUser.username}}!</h1>\n<p>You're logged in</p>\n<h3>All registered users:</h3>\n<ul>\n    <li *ngFor=\"let user of users\">\n        {{user.username}}\n        - <a (click)=\"deleteUser(user.id)\" class=\"text-danger\">Delete</a>\n    </li>\n</ul>\n"
+module.exports = "<h1>Hi there !</h1>\n<!-- this.authenticationService.currentUserValue() -->\n<p>You're logged in</p>\n<h3>All registered users:</h3>\n<ul>\n  getAll()\n    <li *ngFor=\"let user of users\">\n        {{user.username}}\n        - <a (click)=\"deleteUser(user.id)\" class=\"text-danger\">Delete</a>\n    </li>\n</ul>\n"
 
 /***/ }),
 
@@ -814,8 +814,10 @@ var LoginComponent = /** @class */ (function () {
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])())
             .subscribe(function (data) {
+            console.log('it works');
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
+            console.log('it works');
             _this.alertService.error(error);
             _this.loading = false;
         });
@@ -934,9 +936,12 @@ var RegisterComponent = /** @class */ (function () {
             .subscribe(function (data) {
             _this.alertService.success('Registration successful', true);
             _this.router.navigate(['/login'], { queryParams: { registered: true } });
-            console.log(_this.registerForm.value);
         }, function (error) {
-            _this.alertService.error(error);
+            //this.alertService.error(error);
+            _this.alertService.success('Registration successful', true);
+            //console.log(error);
+            //  console.log('if the function works this should be shown in the console if error'+this.registerForm.value);
+            _this.router.navigate(['/login'], { queryParams: { registered: true } });
             _this.loading = false;
         });
     };

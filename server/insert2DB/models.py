@@ -42,11 +42,11 @@ class SystemConsumer(UnivConsumer):
 # PROVIDER ROLES
 class DeptProvider(DeptConsumer):
 	class Meta:
-		permissions = (("can_view_all", "Friendly message"),)
+		permissions = (("can_view_dpt", "Friendly message"),)
 
 class CollegeProvider(DeptProvider):
 	class Meta:
-		permissions = (("can_view_all", "Friendly message"),)
+		permissions = (("can_view_clg", "Friendly message"),)
 
 class UnivProvider(CollegeProvider):
 	class Meta:

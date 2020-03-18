@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 from rest_framework import routers
 from django.conf.urls import url
 from rest_framework.authtoken.views import obtain_auth_token 
+#import mpl.views
 
 router = routers.DefaultRouter()
 
@@ -34,7 +35,7 @@ urlpatterns = [
     path('upload/', views.uploadFile, name = 'uploadFile'),
     
     #Path for sending data to the oracle
-    path('markov/', views.testData, name = 'testData'),
+    path('markov/<str:incomingStudents>/', views.testData.as_view(), name = 'testData'),
 
     #Path for creating a user
     url('createUser', views.createUser, name = 'createUser'),
