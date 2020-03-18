@@ -19,12 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 import jwt,json
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView 
-import matplotlib as pl
-pl.use('Agg')
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
 import io
 
 
