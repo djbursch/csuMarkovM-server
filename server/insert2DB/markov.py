@@ -46,9 +46,9 @@ def markovTrain(incomingStudents):
 	graduated=np.zeros((1, k+1),dtype=int)
 	number_of_units_attempted=np.zeros((1, k+1),dtype=int)
 	number_of_units_DFWed=np.zeros((1, k+1),dtype=int)
-	cohortretention=np.zeros((1, k+1),dtype=int)
-	cohortpersistance=np.zeros((1, k+1),dtype=int)
-	cohortgrad=np.zeros((1, k+1),dtype=int)
+	cohortretention=np.zeros((1, k+1),dtype=np.double)
+	cohortpersistance=np.zeros((1, k+1),dtype=np.double)
+	cohortgrad=np.zeros((1, k+1),dtype=np.double)
 
 
 ###STUDENT FLOW MODEL###
@@ -64,7 +64,6 @@ def markovTrain(incomingStudents):
 			x_DFW[s,t]=x[s,t]*(beta[s])*(1-lmbda[s])*(1-sigma[s])
 			x_slowed[s,t]=x[s,t]*(alpha[s])*(1-sigma[s])*(1-beta[s])
 			x_advance[s,t]=x[s,t]*(1-sigma[s])*(1-lmbda[s])*(1-beta[s])*(1-alpha[s])
-
 		y[0,t]= np.sum(x[:,t]) #number_of_students_enrolled
 		graduated[0,t]=np.sum(x_advance[n,1:t])
 		number_of_units_attempted[0,t]=(1-h)*(np.sum(y[0,t])-np.sum(x_slowed[:,t]))*15+(h)*np.sum((x[:,t]-x_slowed[:,t])*np.transpose(COEUnits))
@@ -73,13 +72,13 @@ def markovTrain(incomingStudents):
 
 ###COHORT CALCULATIONS###
 	if p <= 0:
-		t = 1
+		t = 0
 		cohortretention[0,t]=y[0,t+1]/incoming[1]
 		cohortpersistance[0,t]=y[0,t+1]/incoming[1]
-		for t in range(0, k):
+		for t in range(1, k):
 			cohortpersistance[0,t]=y[0,t+1]/incoming[1]
 			cohortgrad[0,t]=graduated[0,t]/incoming[1]
-			cohortretention[0,t]=(graduated[0,t]+y[0,t+1])/incoming[1]
+			cohortretention[0,t]=np.sum(graduated[0,t]+y[0,t+1])/incoming[1]
 		yr4gradrate=np.sum(x_advance[n,1:8])/incoming[1]*100      #in units of percent(%)
 		yr6gradrate=np.sum(x_advance[n,1:12])/incoming[1]*100  #in units of percent(%)
 		endgradrate=np.sum(x_advance[n,1:15])/incoming[1]*100  #in units of percent(%)
@@ -116,8 +115,11 @@ def markovTrain(incomingStudents):
 		y1=y;
 		graduating1=graduating;
 		number_of_units_attempted1=number_of_units_attempted;
-
-	data = {'time' :  time,  'y' : y[0,:], 'grad' : graduating}
+	
+	data = {'graph1':{'time':time,'uGrad':y[0,:], 'coeGrad':graduating}, 
+			'graph2':{'time':time, 'f1':x[1,:], 'f2':x[2,:], 's1':x[3,:], 's2':x[4,:], 'j1':x[5,:], 'j2':x[6,:], 'se1':x[7,:], 'se2':x[8,:]},
+			'graph3':{'time':time, 'persistance':cohortpersistance, 'retention':cohortretention, 'graduation':cohortgrad},
+			'graph4':{'time':time, '0-29units':np.sum(x[1,:]+x[2,:])/2, '30-59units':np.sum(x[3,:]+x[4,:])/2, '60-89units':np.sum(x[5,:]+x[6,:])/2, '90-119units':np.sum(x[7,:]+x[8,:])/2}}
 	return data
 
 
