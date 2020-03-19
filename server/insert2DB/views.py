@@ -173,7 +173,7 @@ class testData(APIView): #gradRate
 #Send a schools test data to the oracle
   def get(self, request, incomingStudents):
     data = markovTrain(incomingStudents)
-    totalGraphs ={'NumOfCharts':len(data), 'Charts': data}
+    totalGraphs ={'NumOfGraphs':len(data), 'Graphs': data}
     json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
     return Response(json_dump)   
 
