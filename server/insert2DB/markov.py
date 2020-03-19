@@ -116,10 +116,10 @@ def markovTrain(incomingStudents):
 		graduating1=graduating;
 		number_of_units_attempted1=number_of_units_attempted;
 	
-	data = {'graph1':{'time':time,'uGrad':y[0,:], 'coeGrad':graduating}, 
-			'graph2':{'time':time, 'f1':x[1,:], 'f2':x[2,:], 's1':x[3,:], 's2':x[4,:], 'j1':x[5,:], 'j2':x[6,:], 'se1':x[7,:], 'se2':x[8,:]},
-			'graph3':{'time':time, 'persistance':cohortpersistance, 'retention':cohortretention, 'graduation':cohortgrad},
-			'graph4':{'time':time, '0-29units':np.sum(x[1,:]+x[2,:])/2, '30-59units':np.sum(x[3,:]+x[4,:])/2, '60-89units':np.sum(x[5,:]+x[6,:])/2, '90-119units':np.sum(x[7,:]+x[8,:])/2}}
+	data = {'graph1':{'x-axis':time,'uGrad':y[0,:], 'coeGrad':graduating}, 
+			'graph2':{'x-axis':time, 'f1':x[1,:], 'f2':x[2,:], 's1':x[3,:], 's2':x[4,:], 'j1':x[5,:], 'j2':x[6,:], 'se1':x[7,:], 'se2':x[8,:]},
+			'graph3':{'x-axis':time, 'persistance':cohortpersistance, 'retention':cohortretention, 'graduation':cohortgrad},
+			'graph4':{'x-axis':time, '0-29units':(x[1,:]+x[2,:])/2, '30-59units':(x[3,:]+x[4,:])/2, '60-89units':(x[5,:]+x[6,:])/2, '90-119units':(x[7,:]+x[8,:])/2}}
 	return data
 
 

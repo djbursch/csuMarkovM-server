@@ -163,9 +163,16 @@ def uploadFile(request):
 	success = "Your data was saved successfully!"
 	return HttpResponse(success)
 
-class testData(APIView):
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
+class testData(APIView): #gradRate
 #Send a schools test data to the oracle
   def get(self, request, incomingStudents):
     data = markovTrain(incomingStudents)
-    return Response(data)
+    json_dump = json.dumps(data, cls=NumpyEncoder)
+    return Response(json_dump)   
 
