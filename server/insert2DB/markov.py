@@ -4,10 +4,6 @@ import random as rm
 from django.http import HttpResponse
 
 
-
-#This is where the matlab code is going to be translated
-#Just created the pipeline so it's ready to receive data
-
 def markov(request):
 	#This is for when the model is already trained
 	data = request.POST.get('data')
@@ -121,7 +117,7 @@ def markovTrain(incomingStudents):
 		graduating1=graduating;
 		number_of_units_attempted1=number_of_units_attempted;
 
-	data = [time, y[0,:], graduating]
+	data = {'time' :  time,  'y' : y[0,:], 'grad' : graduating}
 	return data
 
 
