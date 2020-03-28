@@ -40,6 +40,9 @@ urlpatterns = [
     #Path for creating a user
     url('createUser', views.createUser, name = 'createUser'),
 
+    #Path for creating a user
+    url('email', views.sendEmail, name = 'sendEmail'),
+
     #Path for logout
     path('logout/', views.userLogout, name = 'userLogout'),
 

@@ -21,6 +21,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView 
 import numpy as np
 import io
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
 
 
 class HomePageView(TemplateView):
@@ -45,6 +48,20 @@ class users(TemplateView):
         users = User.objects.all()
         context = {'allusers': users}
         return render(request, 'index.html', context)
+
+#Send email to user
+@csrf_exempt
+@api_view(["POST"])
+def sendEmail(request):
+  subject = 'Email from backend of csuMarkov'
+  message = 'This email was sent from the back end.\n Hehe I am glad it works.'
+  from_email = settings.EMAIL_HOST_USER
+  to_list = ['lisa.star@csulb.edu', 'mehrdad.aliasgari@csulb.edu']
+  send_mail(subject,message,from_email,to_list,fail_silently=False)
+  success = "User emailed successfully"
+  return HttpResponse(success)
+  #send_mail('subject', 'body of the message', 'djbursch@sbcglobal.net', ['djbursch@gmail.com'])
+
 
 #Creating a user
 @csrf_exempt
@@ -163,6 +180,7 @@ def uploadFile(request):
 	success = "Your data was saved successfully!"
 	return HttpResponse(success)
 
+#class for encoding arrays
 class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
@@ -173,7 +191,7 @@ class testData(APIView): #gradRate
 #Send a schools test data to the oracle
   def get(self, request, incomingStudents):
     data = markovTrain(incomingStudents)
-    totalGraphs ={'NumOfGraphs':len(data), 'Graphs': data}
+    totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
     json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
     return Response(json_dump)   
 
