@@ -9,3 +9,9 @@ making the first change
 * type into command line "python3 manage.py runserver"
 * bada bing you have your server running
 * need to install mongodb and possibly djongo if not already set up 
+
+
+| some thing | more important | up here |
+|------------|----------------|---------|
+| a          | a1             | b       |
+| 1          | 2              | 1       |
