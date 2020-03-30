@@ -1,12 +1,11 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib.auth.models import User, Permission
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
 from .models import Data, Invite, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
 from .markov import markov, markovTrain
 from .pso import particleSwarmOptimization
-from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.utils import json
@@ -16,8 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken, Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-import jwt,json
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+import json
 from rest_framework_simplejwt.views import TokenObtainPairView 
 import numpy as np
 import io
@@ -26,24 +24,24 @@ from django.conf import settings
 from django.contrib import messages
 
 
-class HomePageView(TemplateView):
+class HomePageView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class ChartsView(TemplateView):
+class ChartsView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class LoginView(TemplateView):
+class LoginView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-class RegisterView(TemplateView):
+class RegisterView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
 #getting users
-class users(TemplateView):
+class users(APIView):
   def get(self, request, **kwargs):
         users = User.objects.all()
         context = {'allusers': users}
@@ -98,39 +96,6 @@ def givePerm(request):
 	else:
 		success = "Permission was a failure :("
 		return HttpResponse(success)
-
-'''
-#Log the user in for the session
-@api_view(["POST"])
-def userLogin(request):
-          username = request.POST.get('username')
-          password = request.POST.get('password')
-          user = authenticate(request,username = username,password = password)
-          if user is not None:
-                payload = {
-                  'id': user.id,
-                  'email': user.email,
-                }
-                token = Token(user, 5)
-                token['name'] = user.name
-
-                return HttpResponse(
-                json.dumps(token),
-                status=200,
-                content_type="application/json"
-                )
-          else:
-            	return Response(
-                json.dumps({'Error': "Invalid credentials"}),
-                status=400,
-                content_type="application/json")
-'''
-
-#Log the user out for the session
-def userLogout(request):
-    logout(request)
-    output = "logout was a success!"
-    return HttpResponse(output)
 
 class index(APIView):
     permission_classes = (IsAuthenticated,)

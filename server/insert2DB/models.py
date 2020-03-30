@@ -22,7 +22,7 @@ class Invite(models.Model):
 	invitecode = models.CharField(max_length = 200)
 	pubDate = models.DateTimeField('date published')
 
-#CONSUMER ROLES
+# CONSUMER ROLES
 class DeptConsumer(User):
 	class Meta:
 		permissions = (("can_read_dpt", "Friendly message"),)
