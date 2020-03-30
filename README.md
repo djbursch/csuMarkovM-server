@@ -4,6 +4,7 @@ Application for the California State University (CSU) System to help administrat
 
 ## Getting Started 
 * Clone github repo
+* Make sure to have at least Python 3.7.0 and Django 2.2.0 installed
 * Check requirements.txt page for all needed pip modules
 * When installing modules, type into command line "pip install (insert module name here)"
 * Make sure mongoDB is running in the background
