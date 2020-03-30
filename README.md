@@ -12,7 +12,7 @@ Project for California State University to help administrators deal with the dra
 ## How Does it Work?
 Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universities, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. 
 * Good reference for [Markov Chains](https://setosa.io/ev/markov-chains/)
-* The example below is a typical interactive chart an administrator will see when wanting to test the model with a changing number of incoming students
+* The example below is an interactive chart administrators will see when testing the model with a changing number of incoming students
 
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Screen%20Shot%202020-03-29%20at%206.02.48%20PM.png" width="400" height="350" title="Example Graph of Incoming Students">
