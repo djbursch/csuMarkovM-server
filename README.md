@@ -7,7 +7,7 @@ Project for California State University to help administrators deal with the dra
 * Switched into server directory
 * Type into command line "python manage.py runserver"
 * If missing any modules, go to moduleFile.py to see all needed modules from Django
-* When installing modules, type into command line "pip install <insert module name here>"
+* When installing modules, type into command line "pip install -insert module name here-"
 
 ## How Does it Work?
 Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universities, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. 
