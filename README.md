@@ -1,6 +1,6 @@
 # Cal State Seer - Backend
 ## Project Description
-Application for California State University to help administrators deal with the dramatic increase of students being forecasted in the upcoming decade. Will help identify bottlenecks in graduation rates when faced with the problem of how many students should be allowed in upcoming semesters. Also identifies graduation rates of students as they move along in their semesters and how many units they have previously taken. 
+Application for the California State University (CSU) System to help administrators deal with the dramatic increase of students being forecasted in the upcoming decade. Helps identify bottlenecks in graduation rates when faced with the problem of how many students should be allowed in upcoming semesters. Also identifies graduation rates of students as they move along in their semesters depending on how many units the student has previously taken. 
 
 ## Getting Started 
 * Clone github repo
