@@ -39,5 +39,6 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 * Ignacio Saenz de Navarrete Munar - Author of [frontend](https://github.com/ignacioSaenzdeN/Csu_FE_MainApp)
 
 ## License
+* GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007
 
 
