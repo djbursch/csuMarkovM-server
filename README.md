@@ -20,7 +20,7 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Screen%20Shot%202020-03-29%20at%206.02.48%20PM.png" width="400" height="350" title="Example Graph of Incoming Students">
 </p>
-* Due to our application being a work in progress, more graphs with multiple different formats will be added at a later date
+* Due to our application being a work in progress, more graphs with multiple different formats will be added very soon
 
 ## Security
 ### Verification
