@@ -17,6 +17,7 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Screen%20Shot%202020-03-29%20at%206.02.48%20PM.png" width="400" height="350" title="Example Graph of Incoming Students">
 </p>
+* Due to our application being a work in progress, more graphs with multiple different formats will be added at a later date
 
 ## Security
 ### Verification
@@ -24,7 +25,7 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 * Since this is mainly for administrative use, only invited users are allowed to make accounts
 ### Permissions
 * We have strict permission control to ensure the safety of student data
-* The model below describes the different permissions users are able to attain for our application
+* The tree graph below describes the different permissions users are able to attain when using our application
 
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Permission%20Hierarchy.png" width="500" height="350" title="Permission Hierarchy">
