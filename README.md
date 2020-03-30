@@ -5,11 +5,10 @@ Application for the California State University (CSU) System to help administrat
 ## Getting Started 
 * Clone github repo
 * Check requirements.txt page for all needed pip modules
+* When installing modules, type into command line "pip install (insert module name here)"
 * Make sure mongoDB is running in the background
 * Switch into server directory
 * Type into command line "python manage.py runserver"
-* If missing any modules, go to requirements.txt to see all needed modules from Django
-* When installing modules, type into command line "pip install (insert module name here)"
 * Then type http://localhost:8000/login into your browser and you're ready to start! 
 
 ## How Does it Work?
