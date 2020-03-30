@@ -10,7 +10,15 @@ Project for California State University to help administrators deal with the dra
 * When installing modules, type into command line "pip3 install <insert module name here>"
  
 ## How Does it Work?
-Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universitys, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. A good website to help better understand Markov Chain's is https://setosa.io/ev/markov-chains/.
+Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universities, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. A good website to help better understand Markov Chain's is https://setosa.io/ev/markov-chains/.
+
+## Security
+### Verification
+* Uses Json Web Tokens (JWT) to provide secure authentication for users
+* Since this is mainly for administrative use, only invited users are allowed to make accounts
+### Permissions
+* We have strict permission control to ensure the safety of student data
+* The model below describes the different permissions users are able to attain for our application
 
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Permission%20Hierarchy.png" width="500" height="350" title="Permission Hierarchy">
