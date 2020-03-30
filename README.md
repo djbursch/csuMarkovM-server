@@ -13,5 +13,5 @@ Project for California State University to help administrators deal with the dra
 Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universitys, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. A good website to help better understand Markov Chain's is https://setosa.io/ev/markov-chains/.
 
 
-![Permission Hierarchy](https://github.com/djbursch/csuSeer-server/blob/master/Permission%20Hierarchy.pdf)
+![Permission Hierarchy](https://github.com/djbursch/csuSeer-server/blob/master/images/Permission%20Hierarchy.png)
 
