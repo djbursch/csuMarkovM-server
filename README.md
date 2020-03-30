@@ -9,7 +9,7 @@ Project for California State University to help administrators deal with the dra
 * Switch into server directory
 * Type into command line "python manage.py runserver"
 * If missing any modules, go to requirements.txt to see all needed modules from Django
-* When installing modules, type into command line "pip install -insert module name here-"
+* When installing modules, type into command line "pip install (insert module name here)"
 * Then type http://localhost:8000/login into your browser and you're ready to start! 
 
 ## How Does it Work?
