@@ -8,9 +8,10 @@ Project for California State University to help administrators deal with the dra
 * Type into command line "python3 manage.py runserver"
 * If missing any modules, go to moduleFile.py to see all needed modules from Django
 * When installing modules, type into command line "pip3 install <insert module name here>"
- 
+
 ## How Does it Work?
-Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universities, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. A good website to help better understand Markov Chain's is https://setosa.io/ev/markov-chains/.
+Using a Markov Chain Model that is trained on thousands of examples from previous semesters at California State Universities, including multiple departments and colleges, we can provide accurate predictions based on what was seen in the past to help administrators better prepare for the future. 
+* A good reference for [Markov Chains](https://setosa.io/ev/markov-chains/) 
 
 ## Security
 ### Verification
