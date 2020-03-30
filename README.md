@@ -14,6 +14,6 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 
 
 <p align="center">
-  <img width="400" height="500" src="Permission Hierarchy.pdf">
+  <img width="400" height="500" src="Permission%20Hierarchy.pdf">
 </p>
 
