@@ -15,7 +15,7 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 * Below is an example of a typical graph an administrator will see and since this is a work in progress, many more graphs and formats will be added
 
 <p align="center">
-  <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Screen%20Shot%202020-03-29%20at%206.02.48%20PM.png" width="500" height="350" title="Example Graph of Incoming Students">
+  <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Screen%20Shot%202020-03-29%20at%206.02.48%20PM.png" width="400" height="350" title="Example Graph of Incoming Students">
 </p>
 
 ## Security
