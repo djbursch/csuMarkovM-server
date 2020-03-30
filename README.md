@@ -35,8 +35,8 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 </p>
 
 ## Credits
-* Daniel Jackson Bursch - Author of backend
-* Ignacio Saenz de Navarrete Munar - Author of [frontend](https://github.com/ignacioSaenzdeN/Csu_FE_MainApp)
+* Daniel Jackson Bursch - Backend
+* Ignacio Saenz de Navarrete Munar - [Frontend](https://github.com/ignacioSaenzdeN/Csu_FE_MainApp)
 
 ## License
 * GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007
