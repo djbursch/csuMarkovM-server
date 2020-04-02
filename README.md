@@ -34,6 +34,10 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Permission%20Hierarchy.png" width="500" height="350" title="Permission Hierarchy">
 </p>
 
+## Versioning
+
+* Version 1
+
 ## Credits
 * Daniel Jackson Bursch - Backend
 * Ignacio Saenz de Navarrete Munar - [Frontend](https://github.com/ignacioSaenzdeN/Csu_FE_MainApp)
