@@ -8,12 +8,26 @@ class Data(models.Model):
 	data = models.CharField(max_length = 200)
 	schoolName = models.TextField(max_length = 200)
 	departmentName = models.TextField(max_length = 200)
-	markovModel = models.CharField(max_length = 200)
+	#markovModel = models.CharField(max_length = 200)
 	pubDate = models.DateTimeField('date published')
 	def __str__(self):
 		return self.data
 	def was_published_recently(self):
 		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
+
+#class predictionType(models.Model):
+	'''
+	schoolName
+	departmentName = 'CECS'
+	systemName = 'CSU'
+	userProvider
+	typeOfData = '4 year graduation'
+	sigma
+	alpha
+	beta
+	lmbda
+	'''
+	#greek letters go here
 
 #MODEL FOR INVITE VERIFICATION
 class Invite(models.Model):

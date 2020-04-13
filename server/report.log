@@ -1,0 +1,314 @@
+2020-04-12 19:03:08,909 - django.request - WARNING - Not Found: /favicon.ico
+2020-04-12 19:03:14,368 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:03:45,767 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:04:05,980 - django.request - WARNING - Not Found: /src/styles.less
+2020-04-12 19:04:56,074 - django.request - WARNING - Method Not Allowed: /api/token
+2020-04-12 19:05:09,313 - django.request - WARNING - Bad Request: /api/token
+2020-04-12 19:06:08,958 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/secret_constants.py changed, reloading.
+2020-04-12 19:06:18,855 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:06:29,252 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:16:33,796 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:16:41,096 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:17:17,984 - django.request - WARNING - Not Found: /api/token/
+2020-04-12 19:17:22,975 - django.request - WARNING - Not Found: /api/token/
+2020-04-12 19:17:30,783 - django.request - WARNING - Bad Request: /api/token
+2020-04-12 19:26:12,360 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:29:31,781 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/secret_constants.py changed, reloading.
+2020-04-12 19:29:38,171 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:30:42,602 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/secret_constants.py changed, reloading.
+2020-04-12 19:30:47,836 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/secret_constants.py changed, reloading.
+2020-04-12 19:30:53,336 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:31:40,851 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:31:53,780 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-12 19:32:17,799 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-12 19:32:23,339 - django.request - ERROR - Internal Server Error: /api/token
+Traceback (most recent call last):
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/views.py", line 27, in post
+    serializer.is_valid(raise_exception=True)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/serializers.py", line 75, in validate
+    data['refresh'] = str(refresh)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/tokens.py", line 82, in __str__
+    return token_backend.encode(self.payload)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/rest_framework_simplejwt/backends.py", line 42, in encode
+    token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jwt.py", line 65, in encode
+    json_payload, key, algorithm, headers, json_encoder
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/api_jws.py", line 113, in encode
+    key = alg_obj.prepare_key(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/algorithms.py", line 140, in prepare_key
+    key = force_bytes(key)
+  File "/Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/markov/lib/python3.7/site-packages/jwt/utils.py", line 30, in force_bytes
+    raise TypeError('Expected a string value')
+TypeError: Expected a string value
+2020-04-13 02:04:32,483 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:11:02,702 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:12:51,789 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:14:51,794 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:15:03,946 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:17:27,021 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:21:21,204 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/server/settings.py changed, reloading.
+2020-04-13 02:22:30,830 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/insert2DB/views.py changed, reloading.
+2020-04-13 02:22:45,779 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/insert2DB/models.py changed, reloading.
+2020-04-13 02:23:04,451 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuMarkov/csuMarkov-server/server/insert2DB/cohortModel.py changed, reloading.

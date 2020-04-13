@@ -4,13 +4,12 @@ from django.contrib.auth.models import User, Permission
 from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
 from .models import Data, Invite, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
-from .markov import markov, markovTrain
+from .cohortModel import cohortTest, cohortTrain
 from .pso import particleSwarmOptimization
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.utils import json
 from django.shortcuts import render
-from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken, Token
 from rest_framework.views import APIView
@@ -88,17 +87,22 @@ def givePerm(request):
 			    password = password)
 	if user is not None:
 		#This content_type is for testing, need to get JSON token for actual verification
-		content_type = ContentType.objects.get_for_model(CollegeConsumer)
+		content_type = ContentType.objects.get_for_model(UnivConsumer)
 		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
 							    content_type__model = content_type)
 		user.user_permissions.set(all_permissions)
-		return HttpResponse("success")
+		return Response("success")
 	else:
 		success = "Permission was a failure :("
-		return HttpResponse(success)
+		return Response(success)
+
+def getPerm(request):
+
+  permissions = user.user_permission.get()
+  return Response(permissions)
 
 class index(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, "can_view_clg")
 
     def get(self, request):
         latestDataList = Data.objects.order_by('-pubDate')
@@ -134,16 +138,18 @@ class multipleData(APIView):
 #Upload new data for a school in collection
 def uploadFile(request):
 	#turn file into json
-	pso = particleSwarmOptimization(request)
-	markovModel = markovTrain(pso)
+	#pso = particleSwarmOptimization(request)
+	markovModel = cohortTrain(pso)
 	newData = Data(data = request.data.get('data'), 
 		       schoolName = request.data.get('schoolName'), 
 		       departmentName = request.data.get('departmentName'), 
 		       markovModel = markovModel, 
 		       pubDate = timezone.now())
 	newData.save()
+  #pso(newData)
+  #save new greek letters to parameterModel HERE
 	success = "Your data was saved successfully!"
-	return HttpResponse(success)
+	return Response(success)
 
 #class for encoding arrays
 class NumpyEncoder(json.JSONEncoder):
@@ -155,7 +161,7 @@ class NumpyEncoder(json.JSONEncoder):
 class testData(APIView): #gradRate
 #Send a schools test data to the oracle
   def get(self, request, incomingStudents):
-    data = markovTrain(incomingStudents)
+    data = cohortTest(incomingStudents)
     totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
     json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
     return Response(json_dump)   
