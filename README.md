@@ -7,7 +7,7 @@ Application for the California State University (CSU) System to help administrat
 * Make sure to have at least Python 3.7.0 and Django 2.2.0 installed
 * Check requirements.txt page for all needed pip modules
 * When installing modules, type into command line "pip install (insert module name here)"
-* Make sure MongoDB is running in the background
+* Make sure [MongoDB](https://treehouse.github.io/installation-guides/mac/mongo-mac.html) is running in the background
 * Switch into server directory
 * Type into command line "python manage.py runserver"
 * Then type http://localhost:8000/login into your browser and you're ready to start! 
@@ -33,6 +33,10 @@ Using a Markov Chain Model that is trained on thousands of examples from previou
 <p align="center">
   <img src="https://github.com/djbursch/csuSeer-server/blob/master/images/Permission%20Hierarchy.png" width="500" height="350" title="Permission Hierarchy">
 </p>
+
+## Versioning
+
+* Version 1
 
 ## Credits
 * Daniel Jackson Bursch - Backend
