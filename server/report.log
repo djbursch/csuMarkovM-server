@@ -1327,3 +1327,10 @@ TypeError: int() argument must be a string, a bytes-like object or a number, not
 2020-04-21 02:21:22,410 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/models.py changed, reloading.
 2020-04-21 02:21:26,098 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/server/settings.py changed, reloading.
 2020-04-21 02:25:12,019 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/models.py changed, reloading.
+2020-04-21 03:06:51,345 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:11:50,840 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:12:26,249 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:12:37,999 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:12:53,823 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:13:08,357 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.
+2020-04-21 03:13:41,627 - django.utils.autoreload - INFO - /Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/insert2DB/views.py changed, reloading.

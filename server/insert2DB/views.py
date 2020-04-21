@@ -85,9 +85,10 @@ def givePerm(request):
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
   user = authenticate(request, username = username, password = password)
   if user is not None:
-    content_type = ContentType.objects.get_for_model(SystemProvider)
+    content_type = ContentType.objects.get_for_model(UnivProvider)
     all_permissions = Permission.objects.filter(content_type=content_type)
     user.user_permissions.set(all_permissions)
+    user.has_perm('insert2DB.can_write_clg')
     return Response("success")
   else:
     success = "Permission was a failure :("
