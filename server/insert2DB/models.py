@@ -15,6 +15,8 @@ class Data(models.Model):
 	def was_published_recently(self):
 		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
 
+
+
 #class predictionType(models.Model):
 	'''
 	schoolName
@@ -37,40 +39,62 @@ class Invite(models.Model):
 	pubDate = models.DateTimeField('date published')
 
 # CONSUMER ROLES
-class DeptConsumer(User):
+class DeptConsumer(models.Model):
 	class Meta:
-		permissions = (("can_read_dpt", "Friendly message"),)
+		permissions = (("can_read_dpt", "Can read dpt"),)
 
-class CollegeConsumer(DeptConsumer):
+class CollegeConsumer(models.Model):
     class Meta:
-    	permissions = (("can_read_clg", "Friendly message"),)
+    	permissions = (("can_read_clg", "Can read clg"),
+    					("can_read_dpt", "Can read dpt"),)
 
-class UnivConsumer(CollegeConsumer):
+class UnivConsumer(models.Model):
     class Meta:
-    	permissions = (("can_read_uni", "Friendly message"),)
+    	permissions = (("can_read_uni", "Can read uni"),
+    					("can_read_clg", "Can read clg"),
+    					("can_read_dpt", "Can read dpt"),)
 
-class SystemConsumer(UnivConsumer):
+class SystemConsumer(models.Model):
 	class Meta:
-		permissions = (("can_read_sys", "Friendly message"),)
+		permissions = (("can_read_sys", "Can read sys"),
+						("can_read_uni", "Can read uni"),
+    					("can_read_clg", "Can read clg"),
+    					("can_read_dpt", "Can read dpt"),)
 
 # PROVIDER ROLES
-class DeptProvider(DeptConsumer):
+class DeptProvider(models.Model):
 	class Meta:
-		permissions = (("can_write_dpt", "Friendly message"),)
+		permissions = (("can_write_dpt", "Can write dpt"),
+						("can_read_dpt", "Can read dpt"),)
 
-class CollegeProvider(DeptProvider):
+class CollegeProvider(models.Model):
 	class Meta:
-		permissions = (("can_write_clg", "Friendly message"),)
+		permissions = (("can_write_clg", "Can write clg"),
+						("can_write_dpt", "Can write dpt"),
+						("can_read_dpt", "Can read dpt"),
+						("can_read_clg", "Can read clg"),)
 
-class UnivProvider(CollegeProvider):
+class UnivProvider(models.Model):
 	class Meta:
-		permissions = (("can_write_uni", "Friendly message"),)
+		permissions = (("can_write_uni", "Can write uni"),
+						("can_write_clg", "Can write clg"),
+						("can_write_dpt", "Can write dpt"),
+						("can_read_dpt", "Can read dpt"),
+						("can_read_clg", "Can read clg"),
+						("can_read_uni", "Can read uni"),)
 
-class SystemProvider(UnivProvider):
+class SystemProvider(models.Model):
 	class Meta:
-		permissions = (("can_write_sys", "Friendly message"),)
+		permissions = (("can_write_sys", "Can write sys"),
+						("can_write_uni", "Can write uni"),
+						("can_write_clg", "Can write clg"),
+						("can_write_dpt", "Can write dpt"),
+						("can_read_dpt", "Can read dpt"),
+						("can_read_clg", "Can read clg"),
+						("can_read_uni", "Can read uni"),
+						("can_read_sys", "Can read sys"),)
 
 #PROJECT OWNERS
-class Developer(SystemProvider):
+class Developer(models.Model):
 	class Meta:
-		permissions = (("can_view_all", "can_write_all"),)
+		permissions = (("can_view_all", "Can view all"),)

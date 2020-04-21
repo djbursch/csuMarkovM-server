@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.utils import timezone
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import Permission
 from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
-from .models import Data, Invite, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
+from .models import Data, Invite, User, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
 from .cohortModel import cohortTest, cohortTrain
 from .pso import particleSwarmOptimization
 from rest_framework.decorators import api_view
@@ -21,6 +21,7 @@ import io
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
 
 class HomePageView(APIView):
@@ -79,22 +80,18 @@ def inviteUser(request):
 @csrf_exempt
 @api_view(['POST'])
 def givePerm(request):
-	username = request.POST['username']
-	password = request.POST['password']
+  username = request.POST['username']
+  password = request.POST['password']
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-	user = authenticate(request, 
-			    username = username, 
-			    password = password)
-	if user is not None:
-		#This content_type is for testing, need to get JSON token for actual verification
-		content_type = ContentType.objects.get_for_model(UnivConsumer)
-		all_permissions = Permission.objects.filter(content_type__app_label = 'insert2DB', 
-							    content_type__model = content_type)
-		user.user_permissions.set(all_permissions)
-		return Response("success")
-	else:
-		success = "Permission was a failure :("
-		return Response(success)
+  user = authenticate(request, username = username, password = password)
+  if user is not None:
+    content_type = ContentType.objects.get_for_model(SystemProvider)
+    all_permissions = Permission.objects.filter(content_type=content_type)
+    user.user_permissions.set(all_permissions)
+    return Response("success")
+  else:
+    success = "Permission was a failure :("
+    return Response(success)
 
 def getPerm(request):
 

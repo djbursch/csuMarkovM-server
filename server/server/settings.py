@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'csuSeerDB',
+        'NAME': 'csuSeerDBtry4',
 	#'CLIENT': {
 	#	'username': 'jackson',
 	#	'password': 'pass',
