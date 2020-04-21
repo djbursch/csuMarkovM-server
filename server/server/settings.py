@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 from datetime import timedelta
-from .secret_constants import makeKey
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -89,12 +88,12 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'csuOracleDB',
-	'CLIENT': {
-		'username': 'jackson',
-		'password': 'pass',
-		'authSource': 'csuOracleDB'
-	}
+        'NAME': 'csuSeerDB',
+	#'CLIENT': {
+	#	'username': 'jackson',
+	#	'password': 'pass',
+	#	'authSource': 'csuOracleDB'
+	#}
     }
 }
 
@@ -116,8 +115,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-key = makeKey
-print(key)
+
+import json
+file = open("/Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/server/secret_constants.json", "r")
+secretkey = json.loads(file.read())
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -125,7 +127,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': "secretkey",
+    'SIGNING_KEY': secretkey,
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
