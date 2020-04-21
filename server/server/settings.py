@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 import json
-file = open("/Users/jacksonbursch/Documents/csuSeer/csuSeer-server/server/server/secret_constants.json", "r")
+file = open("server/secret_constants.json", "r")
 secretkey = json.loads(file.read())
 
 SIMPLE_JWT = {
