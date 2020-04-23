@@ -39,7 +39,7 @@ class Invite(models.Model):
 	pubDate = models.DateTimeField('date published')
 
 # CONSUMER ROLES
-class DeptConsumer(models.Model):
+class DepartmentConsumer(models.Model):
 	class Meta:
 		permissions = (("can_read_dpt", "Can read dpt"),)
 
@@ -48,7 +48,7 @@ class CollegeConsumer(models.Model):
     	permissions = (("can_read_clg", "Can read clg"),
     					("can_read_dpt", "Can read dpt"),)
 
-class UnivConsumer(models.Model):
+class UniversityConsumer(models.Model):
     class Meta:
     	permissions = (("can_read_uni", "Can read uni"),
     					("can_read_clg", "Can read clg"),
@@ -62,7 +62,7 @@ class SystemConsumer(models.Model):
     					("can_read_dpt", "Can read dpt"),)
 
 # PROVIDER ROLES
-class DeptProvider(models.Model):
+class DepartmentProvider(models.Model):
 	class Meta:
 		permissions = (("can_write_dpt", "Can write dpt"),
 						("can_read_dpt", "Can read dpt"),)
@@ -74,7 +74,7 @@ class CollegeProvider(models.Model):
 						("can_read_dpt", "Can read dpt"),
 						("can_read_clg", "Can read clg"),)
 
-class UnivProvider(models.Model):
+class UniversityProvider(models.Model):
 	class Meta:
 		permissions = (("can_write_uni", "Can write uni"),
 						("can_write_clg", "Can write clg"),

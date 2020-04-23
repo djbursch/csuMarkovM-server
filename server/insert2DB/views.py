@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import Permission
 from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
-from .models import Data, Invite, User, DeptConsumer, CollegeConsumer, UnivConsumer, SystemConsumer, DeptProvider, CollegeProvider, UnivProvider, SystemProvider, Developer
+from .models import Data, Invite, User, DepartmentConsumer, CollegeConsumer, UniversityConsumer, SystemConsumer, DepartmentProvider, CollegeProvider, UniversityProvider, SystemProvider, Developer
 from .cohortModel import cohortTest, cohortTrain
 from .pso import particleSwarmOptimization
 from rest_framework.decorators import api_view
@@ -85,10 +85,10 @@ def givePerm(request):
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
   user = authenticate(request, username = username, password = password)
   if user is not None:
-    content_type = ContentType.objects.get_for_model(UnivProvider)
+    content_type = ContentType.objects.get_for_model(UniversityProvider)
     all_permissions = Permission.objects.filter(content_type=content_type)
     user.user_permissions.set(all_permissions)
-    user.has_perm('insert2DB.can_write_clg')
+    print(user.has_perm('insert2DB.can_write_sys'))
     return Response("success")
   else:
     success = "Permission was a failure :("
@@ -108,7 +108,7 @@ class index(APIView):
         return Response(output)
 
 class singleData(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request, schoolName, departmentName):
         try:

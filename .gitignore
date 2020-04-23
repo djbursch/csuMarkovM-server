@@ -1,3 +1,6 @@
 #secret key
 secret_constants.json
 secret_constants.json
+markov
+*.log
+*.DS_Store
