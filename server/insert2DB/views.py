@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.contrib.auth.models import Permission
 from django.contrib.auth import authenticate
@@ -161,6 +161,6 @@ class testData(APIView): #gradRate
   def get(self, request, incomingStudents):
     data = cohortTest(incomingStudents)
     totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
-    json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
-    return Response(json_dump)   
+    #json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
+    return Response(totalGraphs)   
 
