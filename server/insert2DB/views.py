@@ -83,6 +83,7 @@ def givePerm(request):
   username = request.data.get('username')
   password = request.data.get('password')
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+  user = authenticate(username = username, password = password)
   if user is not None:
     access = request.data.get('unit_level')
     content_type = ContentType.objects.get_for_model(eval(access))
