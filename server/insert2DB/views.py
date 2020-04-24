@@ -80,23 +80,19 @@ def inviteUser(request):
 @csrf_exempt
 @api_view(['POST'])
 def givePerm(request):
-  #username = request.data.get('username')
-  #password = request.data.get('password')
+  username = request.data.get('username')
+  password = request.data.get('password')
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-  #user = authenticate(request, username = username, password = password)
-  user = User.objects.create_user(username = request.data.get('username'),
-                                  email = request.data.get('email'),
-                                  password = request.data.get('password'))
-  #if user is not None:
-  access = request.data.get('unit_level')
-  content_type = ContentType.objects.get_for_model(eval(access))
-  all_permissions = Permission.objects.filter(content_type=content_type)
-  user.user_permissions.set(all_permissions)
-  print(user.has_perm('insert2DB.can_write_sys'))
-  return Response("success")
-  #else:
-    #success = "Permission was a failure :("
-    #return Response(success)
+  if user is not None:
+    access = request.data.get('unit_level')
+    content_type = ContentType.objects.get_for_model(eval(access))
+    all_permissions = Permission.objects.filter(content_type=content_type)
+    user.user_permissions.set(all_permissions)
+    print(user.has_perm('insert2DB.can_write_sys'))
+    return Response("success")
+  else:
+    success = "Permission was a failure :("
+    return Response(success)
 
 def getPerm(request):
 
