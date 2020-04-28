@@ -1,9 +1,11 @@
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.contrib.auth.models import Permission
+from improved_permissions.shortcuts import assign_role, has_permission
 from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
-from .models import Data, Invite, User, DepartmentConsumer, CollegeConsumer, UniversityConsumer, SystemConsumer, DepartmentProvider, CollegeProvider, UniversityProvider, SystemProvider, Developer
+from insert2DB.models import Data, ModelData, User #, DepartmentConsumer, CollegeConsumer, UniversityConsumer, SystemConsumer, DepartmentProvider, CollegeProvider, UniversityProvider, SystemProvider, Developer
+from insert2DB.roles import Consumer
 from .cohortModel import cohortTest, cohortTrain
 from .pso import particleSwarmOptimization
 from rest_framework.decorators import api_view
@@ -85,11 +87,13 @@ def givePerm(request):
 	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
   user = authenticate(username = username, password = password)
   if user is not None:
-    access = request.data.get('unit_level')
-    content_type = ContentType.objects.get_for_model(eval(access))
-    all_permissions = Permission.objects.filter(content_type=content_type)
-    user.user_permissions.set(all_permissions)
-    print(user.has_perm('insert2DB.can_write_sys'))
+    #access = request.data.get('unit_level')
+    data = Data.objects.create(data='Important Library')
+    assign_role(user,Consumer, data)
+    #content_type = ContentType.objects.get_for_model(eval(access))
+    #all_permissions = Permission.objects.filter(content_type=content_type)
+    #user.user_permissions.set(all_permissions)
+    print(has_permission(user,'insert2DB.can_write_sys'))
     return Response("success")
   else:
     success = "Permission was a failure :("

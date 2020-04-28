@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from improved_permissions.mixins import RoleMixin
 
 #Class for saving the data from each school and department
 class Data(models.Model):
@@ -14,6 +15,44 @@ class Data(models.Model):
 		return self.data
 	def was_published_recently(self):
 		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
+	class Meta:
+		permissions = (
+				("can_write_sys", "Can write sys"),
+				("can_write_uni", "Can write uni"),
+				("can_write_clg", "Can write clg"),
+				("can_write_dpt", "Can write dpt"),
+				#("can_read_dpt", "Can read dpt"),
+				#("can_read_clg", "Can read clg"),
+				#("can_read_uni", "Can read uni"),
+				#("can_read_sys", "Can read sys")
+				)
+	#class RoleOptions:
+        # permission_parents = ['my_library'] maybe this will be useful when we have 2 dbs...
+		#unique_together = True
+
+class ModelData(models.Model):
+	schoolName = models.TextField(max_length = 200)
+	departmentName = models.TextField(max_length = 200)
+	userProvider = models.TextField(max_length = 200)
+	typeOfData = models.TextField(max_length = 200)
+	sigma = models.IntegerField()
+	alpha = models.IntegerField()
+	beta = models.IntegerField()
+	lmbda = models.IntegerField()
+	pubDate = models.DateTimeField('date published')
+	def was_published_recently(self):
+		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
+	class Meta:
+		permissions = (
+				("can_read_dpt", "Can read dpt"),
+				("can_read_clg", "Can read clg"),
+				("can_read_uni", "Can read uni"),
+				("can_read_sys", "Can read sys")
+				)
+	#class RoleOptions:
+        # permission_parents = ['my_library'] maybe this will be useful when we have 2 dbs...
+		#unique_together = True
+
 
 
 
@@ -32,6 +71,7 @@ class Data(models.Model):
 	#greek letters go here
 
 #MODEL FOR INVITE VERIFICATION
+'''
 class Invite(models.Model):
 	username = models.TextField(max_length = 200)
 	password = models.TextField(max_length = 200)
@@ -98,3 +138,4 @@ class SystemProvider(models.Model):
 class Developer(models.Model):
 	class Meta:
 		permissions = (("can_view_all", "Can view all"),)
+'''

@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(^jec*q0l5e%rwxk!80yrn_cjko+wyj36h$23*sloj8$o$s!c8'
+#SECRET_KEY = '(^jec*q0l5e%rwxk!80yrn_cjko+wyj36h$23*sloj8$o$s!c8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'improved_permissions',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'csuSeerDBtry4',
+        'NAME': 'csuSeerDBtry12',
 	#'CLIENT': {
 	#	'username': 'jackson',
 	#	'password': 'pass',
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 import json
 file = open("server/secret_constants.json", "r")
-secretkey = json.loads(file.read())
+SECRET_KEY = json.loads(file.read())
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -127,7 +128,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': secretkey,
+    'SIGNING_KEY': SECRET_KEY,
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
