@@ -55,37 +55,40 @@ def cohortTest(incomingStudents):
 	#Preallocate Matrices 
 	time=np.linspace(0,k,k+1)
 	time1=np.linspace(0,k-1,k)
-	x=np.zeros((n+1, k+1),dtype=int)
-	x_migration=np.zeros((n+1, k+1),dtype=int)
-	x_DFW=np.zeros((n+1, k+1),dtype=int)
-	x_slowed=np.zeros((n+1, k+1),dtype=int)
-	x_Withdraw=np.zeros((n+1, k+1),dtype=int)
-	x_advance=np.zeros((n+1, k+1),dtype=int)
-	y=np.zeros((1, k+1),dtype=np.double)
-	retained=np.zeros((1, k+1),dtype=int)
-	graduated=np.zeros((1, k+1),dtype=int)
-	number_of_units_attempted=np.zeros((1, k+1),dtype=int)
-	number_of_units_DFWed=np.zeros((1, k+1),dtype=int)
+	x=np.zeros((n+1, k+2),dtype=np.double)
+	x_migration=np.zeros((n+1, k+2),dtype=np.double)
+	x_DFW=np.zeros((n+1, k+2),dtype=np.double)
+	x_slowed=np.zeros((n+1, k+2),dtype=np.double)
+	x_Withdraw=np.zeros((n+1, k+2),dtype=np.double)
+	x_advance=np.zeros((n+1, k+2),dtype=float)
+	y=np.zeros((1, k+2),dtype=np.double)
+	retained=np.zeros((1, k+1),dtype=np.double)
+	graduated=np.zeros((1, k+2),dtype=int)
+	number_of_units_attempted=np.zeros((1, k+2),dtype=np.double)
+	number_of_units_DFWed=np.zeros((1, k+2),dtype=np.double)
 	cohortretention=np.zeros((1, k+1),dtype=np.double)
 	cohortpersistance=np.zeros((1, k+1),dtype=np.double)
 	cohortgrad=np.zeros((1, k+1),dtype=np.double)
 
 
 ###STUDENT FLOW MODEL###
-	for t in range(1, k+1): #TIME
+	for t in range(1, k+2): #TIME
 		for s in range(1, n+1):
 			if t <= 1:
 				x[s,t]=x_advance[s-1,t-1]+incoming[s]+x_DFW[s,t-1]+x_slowed[s,t-1]
 			else:
-				x[s,t]=x_advance[s-1,t-1]+incoming[s]*(1-np.mod(t,1))*p+x_DFW[s,t-1]+x_slowed[s,t-1]
+				x[s,t]=x_advance[s-1,t-1]+incoming[s]*(1-np.mod(t+1,2))*p+x_DFW[s,t-1]+x_slowed[s,t-1]
 
 			x_Withdraw[s,t]=x[s,t]*(sigma[s])
 			x_migration[s,t]=x[s,t]*(lmbda[s])*(1-sigma[s])
 			x_DFW[s,t]=x[s,t]*(beta[s])*(1-lmbda[s])*(1-sigma[s])
 			x_slowed[s,t]=x[s,t]*(alpha[s])*(1-sigma[s])*(1-beta[s])
 			x_advance[s,t]=x[s,t]*(1-sigma[s])*(1-lmbda[s])*(1-beta[s])*(1-alpha[s])
+			#print((1-sigma[s]))
+
 		y[0,t]= np.sum(x[:,t]) #number_of_students_enrolled
-		graduated[0,t]=np.sum(x_advance[n,1:t])
+		#print(x_advance)
+		graduated[0,t]=np.sum(x_advance[s,1:t])
 		number_of_units_attempted[0,t]=(1-h)*(np.sum(y[0,t])-np.sum(x_slowed[:,t]))*15+(h)*np.sum((x[:,t]-x_slowed[:,t])*np.transpose(COEUnits))
 		number_of_units_DFWed[0,t]=(1-h)*np.sum(x_DFW[:,t]*15)+h*np.sum(x_DFW[:,t]*np.transpose(COEUnits))
 
