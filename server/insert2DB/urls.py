@@ -10,9 +10,6 @@ urlpatterns = [
     #path for getting all school data
     path('index/', views.index.as_view(), name='index'),
 
-    #path for getting all the users
-    path('users', views.users.as_view()),
-
     #path for registering a user
     url('register/', views.RegisterView.as_view()),
 
@@ -45,5 +42,8 @@ urlpatterns = [
 
     #Path for giving permission
     path('permission/', views.givePerm, name = 'givePerm'),
+
+    #Path for giving permission
+    path('getpermission/', views.getPerm, name = 'getPerm'),
 
 ]

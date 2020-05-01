@@ -88,10 +88,18 @@ def givePerm(request):
     success = "Permission was a failure :("
     return Response(success)
 
+#Give permissions
+@csrf_exempt
+@api_view(['POST'])
 def getPerm(request):
-
-  permissions = user.user_permission.get()
-  return Response(permissions)
+  permission_list = []
+  username = request.data.get('username')
+  password = request.data.get('password')
+  #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+  user = authenticate(username = username, password = password)
+  for p in Permission.objects.filter(user = user):
+    permission_list.append(p.codename)
+  return Response(permission_list)
 
 class index(APIView):
     permission_classes = (IsAuthenticated, "can_view_clg")
