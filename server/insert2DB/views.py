@@ -25,10 +25,12 @@ from django.contrib.auth.models import Group
 
 
 class HomePageView(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
 class ChartsView(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -37,6 +39,12 @@ class LoginView(APIView):
         return render(request, 'index.html', context=None)
 
 class RegisterView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+
+class ProfileView(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 

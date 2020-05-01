@@ -7,6 +7,10 @@ from django.conf.urls import url
 router = routers.DefaultRouter()
 
 urlpatterns = [
+
+    #Path for profile
+    url('profile/', views.ProfileView.as_view()),
+
     #path for getting all school data
     path('index/', views.index.as_view(), name='index'),
 

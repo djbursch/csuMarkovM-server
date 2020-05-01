@@ -140,10 +140,10 @@ def cohortTest(incomingStudents):
 		number_of_units_attempted1=number_of_units_attempted;
 	
 
-	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'yellow'), 'coeGrad':(graduating,'orange')},
-            'figure2':{'x-axis':time, 'f1':(x[1,:],'purple'), 'f2':(x[2,:],'red'), 's1':(x[3,:],'blue'), 's2':(x[4,:],'yellow'), 'j1':(x[5,:],'#0048BA'), 'j2':(x[6,:],'Amber'), 'se1':(x[7,:],'#7C0A02'), 'se2':(x[8,:],'brown')},
-            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#E34234'), 'retention':(cohortretention[0],'red'), 'graduation':(cohortgrad[0],'GREEN')},
-            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'pink'), '30-59units':((x[3,:]+x[4,:])/2,'purple'), '60-89units':((x[5,:]+x[6,:])/2,'#03C03C'), '90-119units':((x[7,:]+x[8,:])/2, '#666699')}}
+	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'yellow'), 'coeGrad':(graduating,'orange'),'description':'figure1'},
+            'figure2':{'x-axis':time, 'f1':(x[1,:],'purple'), 'f2':(x[2,:],'red'), 's1':(x[3,:],'blue'), 's2':(x[4,:],'yellow'), 'j1':(x[5,:],'#0048BA'), 'j2':(x[6,:],'Amber'), 'se1':(x[7,:],'#7C0A02'), 'se2':(x[8,:],'brown'),'description':'figure2'},
+            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#E34234'), 'retention':(cohortretention[0],'red'), 'graduation':(cohortgrad[0],'GREEN'),'description':'figure3'},
+            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'pink'), '30-59units':((x[3,:]+x[4,:])/2,'purple'), '60-89units':((x[5,:]+x[6,:])/2,'#03C03C'), '90-119units':((x[7,:]+x[8,:])/2, '#666699'),'description':'figure4'}}
 	return data
 
 
