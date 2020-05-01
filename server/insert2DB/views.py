@@ -40,13 +40,6 @@ class RegisterView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
-#getting users
-class users(APIView):
-  def get(self, request, **kwargs):
-        users = User.objects.all()
-        context = {'allusers': users}
-        return render(request, 'index.html', context)
-
 #Send email to user
 @csrf_exempt
 @api_view(["POST"])
