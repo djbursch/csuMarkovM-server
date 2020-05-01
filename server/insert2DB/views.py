@@ -123,6 +123,7 @@ class singleData(APIView):
            data = "Oops! That request returned too many responses."
            return Response(data)
 
+#please work so i dont look dumb
 class multipleData(APIView):
       permission_classes = (IsAuthenticated,)
 
