@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import Permission
 from django.contrib.auth import authenticate
 from django.contrib.contenttypes.models import ContentType
-from .models import Data, Invite, User, DepartmentConsumer, CollegeConsumer, UniversityConsumer, SystemConsumer, DepartmentProvider, CollegeProvider, UniversityProvider, SystemProvider, Developer
+from .models import HigherEdDatabase, predictionType, User, DepartmentConsumer, CollegeConsumer, UniversityConsumer, SystemConsumer, DepartmentProvider, CollegeProvider, UniversityProvider, SystemProvider, Developer
 from .cohortModel import cohortTest, cohortTrain
 from .pso import particleSwarmOptimization
 from rest_framework.decorators import api_view
@@ -25,12 +25,10 @@ from django.contrib.auth.models import Group
 
 
 class HomePageView(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
 class ChartsView(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -39,12 +37,10 @@ class LoginView(APIView):
         return render(request, 'index.html', context=None)
 
 class RegisterView(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
 class ProfileView(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
@@ -96,7 +92,7 @@ def givePerm(request):
     success = "Permission was a failure :("
     return Response(success)
 
-#Give permissions
+#Get permissions
 @csrf_exempt
 @api_view(['POST'])
 def getPerm(request):
@@ -105,8 +101,11 @@ def getPerm(request):
   password = request.data.get('password')
   #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
   user = authenticate(username = username, password = password)
-  for p in Permission.objects.filter(user = user):
-    permission_list.append(p.codename)
+  if user is not None:
+    for p in Permission.objects.filter(user = user):
+      permission_list.append(p.codename)
+  else:
+    permission_list = "failure :("
   return Response(permission_list)
 
 class index(APIView):
@@ -120,9 +119,9 @@ class index(APIView):
 class singleData(APIView):
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request, schoolName, departmentName):
+    def get(self, request, collegeName, departmentName):
         try:
-           data = Data.objects.get(schoolName = schoolName, departmentName = departmentName)
+           data = HigherEdDatabase.objects.get(collegeName = schoolName, departmentName = departmentName)
            output = str(data)
            return Response(output)
         except Data.DoesNotExist:
@@ -136,8 +135,8 @@ class singleData(APIView):
 class multipleData(APIView):
       permission_classes = (IsAuthenticated,)
 
-      def get(self, request, schoolName):
-        data = Data.objects.filter(schoolName = schoolName)
+      def get(self, request, collegeName):
+        data = HigherEdDatabase.objects.filter(collegeName = schoolName)
         if not data:
                 output = "There is no school under that name"
         else:
@@ -145,20 +144,35 @@ class multipleData(APIView):
         return HttpResponse(output)
 
 #Upload new data for a school in collection
+@csrf_exempt
+#@api_view(['POST'])
 def uploadFile(request):
-	#turn file into json
-	#pso = particleSwarmOptimization(request)
-	markovModel = cohortTrain(pso)
-	newData = Data(data = request.data.get('data'), 
-		       schoolName = request.data.get('schoolName'), 
-		       departmentName = request.data.get('departmentName'), 
-		       markovModel = markovModel, 
-		       pubDate = timezone.now())
-	newData.save()
-  #pso(newData)
-  #save new greek letters to parameterModel HERE
-	success = "Your data was saved successfully!"
-	return Response(success)
+  schoolData = []
+  #try:
+  file = request.POST.get('data')
+  #data = open(file, 'r')
+  #except Exception as e:
+  print(file)
+  #collegeData = file.split(" ")
+  #collegeData = str(collegeData)
+  newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
+  newData.save()
+  print(newData.id)
+  blankPrediction = predictionType(UniqueID = newData.id)
+  blankPrediction.save()
+  #CREATE A BLANK MODEL AND ATTACH UNIQUE ID FROM SCHOOLDATA
+  #retrieve id from saved data in db
+  #return model id instead of success
+  success = "Your data was saved successfully!"
+  return HttpResponse(success)
+
+#def trainModel(request):
+  #NEED UNIQUE IDENTIFIER FOR SCHOOLDATA FROM DB and save to model DB
+  #schoolData = Data.filter('id' = request.data.get('id'))
+  #training = particleSwarmOptimization(schoolData)
+  #test = cohortTrain()
+  #USE SchoolRecord ID as a foreign key to retrive the modelData
+  #Every single time the user runs just use the schooldata unique key
 
 #class for encoding arrays
 class NumpyEncoder(json.JSONEncoder):

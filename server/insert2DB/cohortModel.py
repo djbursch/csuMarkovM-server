@@ -1,10 +1,9 @@
-from .models import Data
 import numpy as np
 import random as rm
 from django.http import HttpResponse
 
 
-def cohortTrain(nStudents, sigma, beta, alpha, lmbda):
+def cohortTrain(nStudents, ):
 	#This is for when the model is already trained
 	N10=488
 	##Inputs
@@ -38,9 +37,8 @@ def cohortTest(incomingStudents):
 	p = 0 #steady state trigger, if p=1 steady-state, p=0 only add students in year 1 
 	h = 0 #college trigger, if h=1, only calc College, if =0, calc university
 	q =0 #system shock trigger, if q=1, add shock semester 15, if q=0 just steady state
-
+	
 	#Calibration Factors:
-	#incomingStudents = request.data.get('students')
 	##Calibration factors for PSO
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
@@ -55,20 +53,20 @@ def cohortTest(incomingStudents):
 	#Preallocate Matrices 
 	time=np.linspace(0,k,k+1)
 	time1=np.linspace(0,k-1,k)
-	x=np.zeros((n+1, k+2),dtype=np.double)
-	x_migration=np.zeros((n+1, k+2),dtype=np.double)
-	x_DFW=np.zeros((n+1, k+2),dtype=np.double)
-	x_slowed=np.zeros((n+1, k+2),dtype=np.double)
-	x_Withdraw=np.zeros((n+1, k+2),dtype=np.double)
+	x=np.zeros((n+1, k+2),dtype=float)
+	x_migration=np.zeros((n+1, k+2),dtype=float)
+	x_DFW=np.zeros((n+1, k+2),dtype=float)
+	x_slowed=np.zeros((n+1, k+2),dtype=float)
+	x_Withdraw=np.zeros((n+1, k+2),dtype=float)
 	x_advance=np.zeros((n+1, k+2),dtype=float)
-	y=np.zeros((1, k+2),dtype=np.double)
-	retained=np.zeros((1, k+1),dtype=np.double)
-	graduated=np.zeros((1, k+2),dtype=int)
-	number_of_units_attempted=np.zeros((1, k+2),dtype=np.double)
-	number_of_units_DFWed=np.zeros((1, k+2),dtype=np.double)
-	cohortretention=np.zeros((1, k+1),dtype=np.double)
-	cohortpersistance=np.zeros((1, k+1),dtype=np.double)
-	cohortgrad=np.zeros((1, k+1),dtype=np.double)
+	y=np.zeros((1, k+2),dtype=float)
+	retained=np.zeros((1, k+1),dtype=float)
+	graduated=np.zeros((1, k+2),dtype=float)
+	number_of_units_attempted=np.zeros((1, k+2),dtype=float)
+	number_of_units_DFWed=np.zeros((1, k+2),dtype=float)
+	cohortretention=np.zeros((1, k+1),dtype=float)
+	cohortpersistance=np.zeros((1, k+1),dtype=float)
+	cohortgrad=np.zeros((1, k+1),dtype=float)
 
 
 ###STUDENT FLOW MODEL###
@@ -98,10 +96,13 @@ def cohortTest(incomingStudents):
 		t = 0
 		cohortretention[0,t]=y[0,t+1]/incoming[1]
 		cohortpersistance[0,t]=y[0,t+1]/incoming[1]
-		for t in range(1, k):
+		for t in range(1, k+1):
 			cohortpersistance[0,t]=y[0,t+1]/incoming[1]
 			cohortgrad[0,t]=graduated[0,t]/incoming[1]
 			cohortretention[0,t]=(graduated[0,t]+y[0,t+1])/incoming[1]
+		#print(cohortpersistance)
+		#print(cohortgrad)
+		#print(cohortretention)
 		yr4gradrate=np.sum(x_advance[n,1:8])/incoming[1]*100      #in units of percent(%)
 		yr6gradrate=np.sum(x_advance[n,1:12])/incoming[1]*100  #in units of percent(%)
 		endgradrate=np.sum(x_advance[n,1:15])/incoming[1]*100  #in units of percent(%)

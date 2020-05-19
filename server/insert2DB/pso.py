@@ -1,43 +1,24 @@
-from .models import Data
-import numpy as np
-import random as rm
 import pyswarms as ps
+import pyswarms as ps
+import numpy as np
+from pyswarms.single.global_best import GlobalBestPSO
+from .cost import cost
 
 def particleSwarmOptimization(request):
-	
-	data = request.POST.get('data')
-	UnivGrad = data
-	globalMinimum = 0
-	##need to update with actual data
-	parameters = [0,0,1,33,195,305]
-	'''
-	%Fall 2010 %
-	UnivGrad10=[0,0,1,33,195,305];%univ grad
-	UnivPers10=[439,416,410,353,184,59]; %Univ persist
-	UnivRet10=[439,416,402,386,379,364]; %Univ retention
-	
-	'''
 
-	localMinimum = 0
-	'''
-	NEED TO SEND TO TRAINING MODEL
-	for t in range(0,100):
+	# hyperparameters and bounds
+	x_max = 1* np.ones(4)
+	x_min = 0 * x_max
+	bounds = (x_min, x_max)
 
-		lmbda -> random starting value within (0, .10)
-		starting at t=1, initial value
-		v(0) = 0 (nothing has moved yet)
-		sigma -> random starting value wintin (0, .10)
-		alpha -> random starting value wintin (0, .10)
-		beta -> random starting value wintin (0, .10)
-	'''
-	##do the calculations (make a trainingModel.py)
-	##get cohort grad (graduated)
+	# instatiate the optimizer
+	options = {'c1': .5, 'c2': .6, 'w': .8}
+	optimizer = GlobalBestPSO(n_particles=10, dimensions=4, options=options, bounds=bounds)
 
+	# now run the optimization
+	cost, pos = optimizer.optimize(cost,100)
 
-	currentCost = cost(UnivGrad, graduated)
-	if currentCost < localMinimum:
-		localMinimum = currentCost
-	if localMinimum < globalMinimum:
-		globalMinimum = localMinimum
+	return pos
+
 
 

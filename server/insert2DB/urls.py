@@ -47,7 +47,7 @@ urlpatterns = [
     #Path for giving permission
     path('permission/', views.givePerm, name = 'givePerm'),
 
-    #Path for giving permission
+    #Path for getting all permissions
     path('getpermission/', views.getPerm, name = 'getPerm'),
 
 ]
