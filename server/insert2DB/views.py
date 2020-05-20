@@ -163,7 +163,7 @@ class multipleData(APIView):
 def uploadFile(request):
   schoolData = []
   #try:
-  file = request.POST.get('data')
+  file = request.data.get('data')
   data = open(file, 'r')
   #except Exception as e:
   print(data)
