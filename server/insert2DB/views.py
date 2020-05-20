@@ -173,17 +173,16 @@ def uploadFile(request):
   return Response(uniqueID)
 
 #Train a model on the newly updated school data
-class trainModel(APIView):
-  def get(self, request):
-    uniqueID = request.data.get('uniqueID')
-    schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
-    nStudents = request.data.get('amountOfStudents')
-    [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
-    graph = cohortTrain(nStudents,sigma,beta,alpha)
-    schoolData = predictionType.get(UniqueID = uniqueID)
-    schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
-    schoolData.save()
-    return Response(graph)
+def trainModel(request):
+  uniqueID = request.data.get('uniqueID')
+  schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
+  nStudents = request.data.get('amountOfStudents')
+  [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
+  graph = cohortTrain(nStudents,sigma,beta,alpha)
+  schoolData = predictionType.get(UniqueID = uniqueID)
+  schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
+  schoolData.save()
+  return Response(graph)
 
 #A class for changing variables to a json object.... not really used right now
 class NumpyEncoder(json.JSONEncoder):
@@ -193,10 +192,10 @@ class NumpyEncoder(json.JSONEncoder):
     return json.JSONEncoder.default(self, obj)
 
 #Test the already trained cohortmodel
-class testData(APIView):
-  def get(self, request, incomingStudents):
-    data = cohortTest(incomingStudents)
-    totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
-    #json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
-    return Response(totalGraphs)   
+@api_view(["POST"])
+def testData(request, incomingStudents):
+  data = cohortTest(incomingStudents)
+  totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
+  #json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
+  return Response(totalGraphs)   
 
