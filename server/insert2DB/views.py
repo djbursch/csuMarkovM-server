@@ -164,9 +164,9 @@ def uploadFile(request):
   schoolData = []
   #try:
   file = request.POST.get('data')
-  #data = open(file, 'r')
+  data = open(file, 'r')
   #except Exception as e:
-  print(file)
+  print(data)
   #collegeData = file.split(" ")
   #collegeData = str(collegeData)
   newData = HigherEdDatabase(data = file, collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
