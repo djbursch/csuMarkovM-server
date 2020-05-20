@@ -68,7 +68,7 @@ class ProfileView(APIView):
 
 #Send email to user
 class sendEmail(APIView):
-  def sendEmail(request):
+  def sendEmail(self, request):
     subject = 'Email from backend of csuMarkov'
     message = 'This email was sent from the back end.\n Hehe I am glad it works.'
     from_email = settings.EMAIL_HOST_USER
@@ -79,14 +79,14 @@ class sendEmail(APIView):
 
 #Creating a user
 class createUser(APIView):
-  def get(request):
+  def get(self, request):
     user = User.objects.create_user(username = request.data.get('username'),email = request.data.get('email'),password = request.data.get('password'))
     success = "User created successfully"
     return Response(success)
 
 #Give permissions to a user
 class givePerm(APIView):
-  def get(request):
+  def get(self, request):
     username = request.data.get('username')
     password = request.data.get('password')
     #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
@@ -105,7 +105,7 @@ class givePerm(APIView):
 #Get permissions
 class getPerm(APIView):
   @api_view(["POST"])
-  def get(request):
+  def get(self, request):
     permission_list = []
     username = request.data.get('username')
     password = request.data.get('password')
