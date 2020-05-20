@@ -33,21 +33,24 @@ urlpatterns = [
     path('multiple/<str:schoolName>/', views.multipleData.as_view(), name = 'multipleData'),
     
     #Path for uploading data
-    path('upload/', views.uploadFile, name = 'uploadFile'),
+    path('upload/', views.uploadFile.as_view(), name = 'uploadFile'),
+
+    #Path for training
+    path('train/', views.trainModel.as_view(), name = 'trainModel'),
     
     #Path for sending data to the oracle
     path('markov/<str:incomingStudents>/', views.testData.as_view(), name = 'testData'),
 
     #Path for creating a user
-    url('createUser', views.createUser, name = 'createUser'),
+    url('createUser', views.createUser.as_view(), name = 'createUser'),
 
     #Path for sending emails
-    url('email', views.sendEmail, name = 'sendEmail'),
+    url('email', views.sendEmail.as_view(), name = 'sendEmail'),
 
     #Path for giving permission
-    path('permission/', views.givePerm, name = 'givePerm'),
+    path('permission/', views.givePerm.as_view(), name = 'givePerm'),
 
     #Path for getting all permissions
-    path('getpermission/', views.getPerm, name = 'getPerm'),
+    path('getpermission/', views.getPerm.as_view(), name = 'getPerm'),
 
 ]

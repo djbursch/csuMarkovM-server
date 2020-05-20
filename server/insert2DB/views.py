@@ -21,9 +21,18 @@ import io
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.models import Group
 
+""" Classes for the views that will be rendered in Angular.js
 
+    These files are saved in the static folder and then they are accessed
+    through the template folder which as the index.html file.
+    
+    Args:
+        request (object): The object sent with the request
+        kwargs (dictionary): The different variables from angular.js  
+    Returns:
+        a render request to the index.html file as mentioned above
+"""
 class HomePageView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
@@ -45,68 +54,55 @@ class ProfileView(APIView):
         return render(request, 'index.html', context=None)
 
 #Send email to user
-@csrf_exempt
-@api_view(["POST"])
-def sendEmail(request):
-  subject = 'Email from backend of csuMarkov'
-  message = 'This email was sent from the back end.\n Hehe I am glad it works.'
-  from_email = settings.EMAIL_HOST_USER
-  to_list = ['lisa.star@csulb.edu', 'mehrdad.aliasgari@csulb.edu']
-  send_mail(subject,message,from_email,to_list,fail_silently=False)
-  success = "User emailed successfully"
-  return HttpResponse(success)
-  #send_mail('subject', 'body of the message', 'djbursch@sbcglobal.net', ['djbursch@gmail.com'])
-
-
-#Creating a user
-@csrf_exempt
-@api_view(["POST"])
-def createUser(request):
-  user = User.objects.create_user(username = request.data.get('username'),
-                                	email = request.data.get('email'),
-                                	password = request.data.get('password'))
-  success = "User created successfully"
-  return HttpResponse(success)
-
-def inviteUser(request):
-	#ALLOWING ADMIN TO INVITE USERS TO SERVER
-	success = "User created successfully"
-	return HttpResponse(success)
-
-#Give permissions
-@csrf_exempt
-@api_view(['POST'])
-def givePerm(request):
-  username = request.data.get('username')
-  password = request.data.get('password')
-	#NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-  user = authenticate(username = username, password = password)
-  if user is not None:
-    access = request.data.get('unit_level')
-    content_type = ContentType.objects.get_for_model(eval(access))
-    all_permissions = Permission.objects.filter(content_type=content_type)
-    user.user_permissions.set(all_permissions)
-    print(user.has_perm('insert2DB.can_write_sys'))
-    return Response("success")
-  else:
-    success = "Permission was a failure :("
+class sendEmail(APIView):
+  def sendEmail(request):
+    subject = 'Email from backend of csuMarkov'
+    message = 'This email was sent from the back end.\n Hehe I am glad it works.'
+    from_email = settings.EMAIL_HOST_USER
+    to_list = ['lisa.star@csulb.edu', 'mehrdad.aliasgari@csulb.edu']
+    send_mail(subject,message,from_email,to_list,fail_silently=False)
+    success = "User emailed successfully"
     return Response(success)
 
+#Creating a user
+class createUser(APIView):
+  def get(request):
+    user = User.objects.create_user(username = request.data.get('username'),email = request.data.get('email'),password = request.data.get('password'))
+    success = "User created successfully"
+    return Response(success)
+
+#Give permissions
+class givePerm(APIView):
+  def get(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+    user = authenticate(username = username, password = password)
+    if user is not None:
+      access = request.data.get('unit_level')
+      content_type = ContentType.objects.get_for_model(eval(access))
+      all_permissions = Permission.objects.filter(content_type=content_type)
+      user.user_permissions.set(all_permissions)
+      print(user.has_perm('insert2DB.can_write_sys'))
+      return Response("success")
+    else:
+      success = "Permission was a failure :("
+      return Response(success)
+
 #Get permissions
-@csrf_exempt
-@api_view(['POST'])
-def getPerm(request):
-  permission_list = []
-  username = request.data.get('username')
-  password = request.data.get('password')
-  #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-  user = authenticate(username = username, password = password)
-  if user is not None:
-    for p in Permission.objects.filter(user = user):
-      permission_list.append(p.codename)
-  else:
-    permission_list = "failure :("
-  return Response(permission_list)
+class getPerm(APIView):
+  def get(request):
+    permission_list = []
+    username = request.data.get('username')
+    password = request.data.get('password')
+    #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+    user = authenticate(username = username, password = password)
+    if user is not None:
+      for p in Permission.objects.filter(user = user):
+        permission_list.append(p.codename)
+    else:
+      permission_list = "failure :("
+    return Response(permission_list)
 
 class index(APIView):
     permission_classes = (IsAuthenticated, "can_view_clg")
@@ -144,45 +140,40 @@ class multipleData(APIView):
         return HttpResponse(output)
 
 #Upload new data for a school in collection
-@csrf_exempt
-#@api_view(['POST'])
-def uploadFile(request):
-  schoolData = []
-  #try:
-  file = request.POST.get('data')
-  #data = open(file, 'r')
-  #except Exception as e:
-  print(file)
-  #collegeData = file.split(" ")
-  #collegeData = str(collegeData)
-  newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
-  newData.save()
-  print(newData.id)
-  blankPrediction = predictionType(UniqueID = newData.id)
-  blankPrediction.save()
-  #CREATE A BLANK MODEL AND ATTACH UNIQUE ID FROM SCHOOLDATA
-  #retrieve id from saved data in db
-  #return model id instead of success
-  success = "Your data was saved successfully!"
-  return HttpResponse(success)
+class uploadFile(APIView):
+  def get(self, request):
+    schoolData = []
+    #try:
+    file = request.POST.get('data')
+    #data = open(file, 'r')
+    #except Exception as e:
+    print(file)
+    #collegeData = file.split(" ")
+    #collegeData = str(collegeData)
+    newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
+    newData.save()
+    # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
+    uniqueID = newData.id
+    blankPrediction = predictionType(UniqueID = uniqueID)
+    blankPrediction.save()
+    return Response(uniqueID)
 
-#def trainModel(request):
-  #NEED UNIQUE IDENTIFIER FOR SCHOOLDATA FROM DB and save to model DB
-  #schoolData = Data.filter('id' = request.data.get('id'))
-  #training = particleSwarmOptimization(schoolData)
-  #test = cohortTrain()
-  #USE SchoolRecord ID as a foreign key to retrive the modelData
-  #Every single time the user runs just use the schooldata unique key
+class trainModel(APIView):
+  def get(self, request):
+    [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request)
+    graph = cohortTrain(500,sigma,beta,alpha)
+    schoolData = predictionType.get(UniqueID = request.data.get('uniqueID'))
+    schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 500, pubDate = timezone.now())
+    schoolData.save()
+    return Response(graph)
 
-#class for encoding arrays
 class NumpyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return json.JSONEncoder.default(self, obj)
+  def default(self, obj):
+    if isinstance(obj, np.ndarray):
+      return obj.tolist()
+    return json.JSONEncoder.default(self, obj)
 
-class testData(APIView): #gradRate
-#Send a schools test data to the oracle
+class testData(APIView):
   def get(self, request, incomingStudents):
     data = cohortTest(incomingStudents)
     totalGraphs ={'NumOfFigures':len(data), 'Figures': data}

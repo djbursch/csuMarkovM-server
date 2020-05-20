@@ -22,6 +22,12 @@ class predictionType(models.Model):
 	alpha = models.IntegerField()
 	beta = models.IntegerField()
 	lmbda = models.IntegerField()
+	numberOfStudents = models.IntegerField()
+	pubDate = models.DateTimeField('date published')
+	def __str__(self):
+		return self.UniqueID
+	def was_published_recently(self):
+		return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
 
 # CONSUMER ROLES
 class DepartmentConsumer(models.Model):
