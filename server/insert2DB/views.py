@@ -103,8 +103,8 @@ class givePerm(APIView):
       return Response(success)
 
 #Get permissions
-@api_view(["POST"])
 class getPerm(APIView):
+  @api_view(["POST"])
   def get(request):
     permission_list = []
     username = request.data.get('username')
@@ -156,8 +156,8 @@ class multipleData(APIView):
         return HttpResponse(output)
 
 #Upload new data for a school in collection
-@api_view(["POST"])
 class uploadFile(APIView):
+  @api_view(["POST"])
   def get(self, request):
     schoolData = []
     #try:
