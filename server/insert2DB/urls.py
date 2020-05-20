@@ -51,6 +51,6 @@ urlpatterns = [
     path('permission/', views.givePerm.as_view(), name = 'givePerm'),
 
     #Path for getting all permissions
-    path('getpermission/', views.getPerm.as_view(), name = 'getPerm'),
+    path('getpermission/', views.getPerm, name = 'getPerm'),
 
 ]

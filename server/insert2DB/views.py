@@ -103,20 +103,19 @@ class givePerm(APIView):
       return Response(success)
 
 #Get permissions
-class getPerm(APIView):
-  @api_view(["POST"])
-  def get(self, request):
-    permission_list = []
-    username = request.data.get('username')
-    password = request.data.get('password')
-    #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-    user = authenticate(username = username, password = password)
-    if user is not None:
-      for p in Permission.objects.filter(user = user):
-        permission_list.append(p.codename)
-    else:
-      permission_list = "failure :("
-    return Response(permission_list)
+@api_view(["POST"])
+def getPerm(request):
+  permission_list = []
+  username = request.data.get('username')
+  password = request.data.get('password')
+  #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+  user = authenticate(username = username, password = password)
+  if user is not None:
+    for p in Permission.objects.filter(user = user):
+      permission_list.append(p.codename)
+  else:
+    permission_list = "failure :("
+  return Response(permission_list)
 
 #Getting all the universities saved in the DB
 class index(APIView):
