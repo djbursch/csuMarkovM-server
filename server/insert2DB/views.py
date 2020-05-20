@@ -177,7 +177,7 @@ class uploadFile(APIView):
 class trainModel(APIView):
   def get(self, request):
     uniqueID = request.data.get('uniqueID')
-    schoolData = HigherEdDatabase.objects.filter('id' = uniqueID)
+    schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
     nStudents = request.data.get('amountOfStudents')
     [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
     graph = cohortTrain(nStudents,sigma,beta,alpha)
