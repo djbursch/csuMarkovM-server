@@ -67,6 +67,7 @@ class ProfileView(APIView):
 """
 
 #Send email to user
+@api_view(["POST"])
 def sendEmail(request):
   subject = 'Email from backend of csuMarkov'
   message = 'This email was sent from the back end.\n Hehe I am glad it works.'
@@ -77,11 +78,11 @@ def sendEmail(request):
   return Response(success)
 
 #Creating a user
-class createUser(APIView):
-  def get(self, request):
-    user = User.objects.create_user(username = request.data.get('username'),email = request.data.get('email'),password = request.data.get('password'))
-    success = "User created successfully"
-    return Response(success)
+@api_view(["POST"])
+def createUser(request):
+  user = User.objects.create_user(username = request.data.get('username'),email = request.data.get('email'),password = request.data.get('password'))
+  success = "User created successfully"
+  return Response(success)
 
 #Give permissions to a user
 @api_view(["POST"])
@@ -164,7 +165,7 @@ def uploadFile(request):
   print(file)
   #collegeData = file.split(" ")
   #collegeData = str(collegeData)
-  newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
+  newData = HigherEdDatabase(data = file, collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
   newData.save()
   # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
   uniqueID = newData.id
@@ -173,6 +174,7 @@ def uploadFile(request):
   return Response(uniqueID)
 
 #Train a model on the newly updated school data
+@api_view(["POST"])
 def trainModel(request):
   uniqueID = request.data.get('uniqueID')
   schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
