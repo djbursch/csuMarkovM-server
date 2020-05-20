@@ -19,6 +19,9 @@ urlpatterns = [
 
     #Path for home
     url('home/', views.HomePageView.as_view()),
+
+    #Path for home
+    url('uploadView/', views.UploadView.as_view()),
   
     #path for charts
     url('charts/', views.ChartsView.as_view()),
