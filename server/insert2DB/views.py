@@ -176,9 +176,12 @@ class uploadFile(APIView):
 #Train a model on the newly updated school data
 class trainModel(APIView):
   def get(self, request):
-    [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request)
-    graph = cohortTrain(500,sigma,beta,alpha)
-    schoolData = predictionType.get(UniqueID = request.data.get('uniqueID'))
+    uniqueID = request.data.get('uniqueID')
+    schoolData = HigherEdDatabase.objects.filter('id' = uniqueID)
+    nStudents = request.data.get('amountOfStudents')
+    [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
+    graph = cohortTrain(nStudents,sigma,beta,alpha)
+    schoolData = predictionType.get(UniqueID = uniqueID)
     schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 500, pubDate = timezone.now())
     schoolData.save()
     return Response(graph)

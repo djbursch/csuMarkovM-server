@@ -4,7 +4,7 @@ import numpy as np
 from pyswarms.single.global_best import GlobalBestPSO
 from .cost import cost
 
-def particleSwarmOptimization(request):
+def particleSwarmOptimization(request, nStudents):
 
 	# hyperparameters and bounds
 	x_max = 1* np.ones(4)
@@ -16,7 +16,7 @@ def particleSwarmOptimization(request):
 	optimizer = GlobalBestPSO(n_particles=10, dimensions=4, options=options, bounds=bounds)
 
 	# now run the optimization
-	cost, pos = optimizer.optimize(cost,100)
+	cost, pos = optimizer.optimize(cost,100, nStudents = nStudents)
 
 	return pos
 

@@ -2,7 +2,7 @@ import numpy as np
 import random as rm
 
 #include graduation, retention, # of students, and units
-def cost(x):
+def cost(x, nStudents, schoolData):
 	UnivGrad10 =[0,0,1,33,195,305]
 	graderror1 = [0,0,0,0,0,0]
 	graderror2 = [0,0,0,0,0,0]
@@ -13,13 +13,13 @@ def cost(x):
 		b = x[j,1]
 		a = x[j,2]
 		#l = x[j,3] 
-		grad = Markov(s,b,a)
+		grad = Markov(nStudents,s,b,a)
 		for i in range(0,5):
 			graderror1[i] = np.power((UnivGrad10[i]-grad[i]),2)/np.power((UnivGrad10[i]+.0001),2)
 		endsumerror.append(np.sum(graderror1)) #+ np.sum(graderror2) + np.sum(graderror3)
 	return endsumerror
 
-def Markov(s,b,a):
+def Markov(nStudents,s,b,a):
 	n = 8 #number of semesters in road map
 	k = 15 #number of semesters to model
 	p = 0 #steady state trigger, if p=1 steady-state, p=0 only add students in year 1 
@@ -30,7 +30,7 @@ def Markov(s,b,a):
 	#Calibration Factors
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
-	incoming=488*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
+	incoming=nStudents*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
 	sigma=s*np.asarray([0.0,3.6,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]) #University withdrawal rate (1-retained)for each class at time k
 	beta=b*np.asarray(ones) #DFW rate for each class at time k (need to repeat)
 	alpha=a*np.asarray(ones) #slowing factor to account for students taking less than 15 units per semester (need additional semester to complete class)
