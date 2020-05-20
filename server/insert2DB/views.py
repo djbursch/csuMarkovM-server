@@ -53,6 +53,10 @@ class ProfileView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
+class UploadView(APIView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+
 
 """ Classes for the routes that will be used by the frontend to do some action
 
