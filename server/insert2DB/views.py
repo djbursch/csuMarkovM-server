@@ -161,16 +161,7 @@ class multipleData(APIView):
 #Upload new data for a school in collection
 @api_view(["POST"])
 def uploadFile(request):
-  schoolData = []
-  #try:
-  file = request.data.get('data')
-  print(file)
-  data = open(file, 'w')
-  #except Exception as e:
-  print(data)
-  #collegeData = file.split(" ")
-  #collegeData = str(collegeData)
-  newData = HigherEdDatabase(data = file, collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
+  newData = HigherEdDatabase(data = request.data.get('data'), collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
   newData.save()
   # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
   uniqueID = newData.id
