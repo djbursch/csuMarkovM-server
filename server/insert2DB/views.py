@@ -165,7 +165,7 @@ def uploadFile(request):
   #try:
   file = request.data.get('data')
   print(file)
-  data = open(file, 'r')
+  data = open(file, 'w')
   #except Exception as e:
   print(data)
   #collegeData = file.split(" ")
