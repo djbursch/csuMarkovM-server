@@ -48,7 +48,7 @@ urlpatterns = [
     url('email', views.sendEmail.as_view(), name = 'sendEmail'),
 
     #Path for giving permission
-    path('permission/', views.givePerm.as_view(), name = 'givePerm'),
+    path('permission/', views.givePerm, name = 'givePerm'),
 
     #Path for getting all permissions
     path('getpermission/', views.getPerm, name = 'getPerm'),

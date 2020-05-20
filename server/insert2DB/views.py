@@ -67,15 +67,14 @@ class ProfileView(APIView):
 """
 
 #Send email to user
-class sendEmail(APIView):
-  def sendEmail(self, request):
-    subject = 'Email from backend of csuMarkov'
-    message = 'This email was sent from the back end.\n Hehe I am glad it works.'
-    from_email = settings.EMAIL_HOST_USER
-    to_list = ['lisa.star@csulb.edu', 'mehrdad.aliasgari@csulb.edu']
-    send_mail(subject,message,from_email,to_list,fail_silently=False)
-    success = "User emailed successfully"
-    return Response(success)
+def sendEmail(request):
+  subject = 'Email from backend of csuMarkov'
+  message = 'This email was sent from the back end.\n Hehe I am glad it works.'
+  from_email = settings.EMAIL_HOST_USER
+  to_list = ['lisa.star@csulb.edu', 'mehrdad.aliasgari@csulb.edu']
+  send_mail(subject,message,from_email,to_list,fail_silently=False)
+  success = "User emailed successfully"
+  return Response(success)
 
 #Creating a user
 class createUser(APIView):
@@ -85,22 +84,22 @@ class createUser(APIView):
     return Response(success)
 
 #Give permissions to a user
-class givePerm(APIView):
-  def get(self, request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
-    user = authenticate(username = username, password = password)
-    if user is not None:
-      access = request.data.get('unit_level')
-      content_type = ContentType.objects.get_for_model(eval(access))
-      all_permissions = Permission.objects.filter(content_type=content_type)
-      user.user_permissions.set(all_permissions)
-      print(user.has_perm('insert2DB.can_write_sys'))
-      return Response("success")
-    else:
-      success = "Permission was a failure :("
-      return Response(success)
+@api_view(["POST"])
+def givePerm(request):
+  username = request.data.get('username')
+  password = request.data.get('password')
+  #NEED TO GET SPECIAL KEY FROM USER##############JSON TOKEN FROM SCHOOL MAYBE?
+  user = authenticate(username = username, password = password)
+  if user is not None:
+    access = request.data.get('unit_level')
+    content_type = ContentType.objects.get_for_model(eval(access))
+    all_permissions = Permission.objects.filter(content_type=content_type)
+    user.user_permissions.set(all_permissions)
+    print(user.has_perm('insert2DB.can_write_sys'))
+    return Response("success")
+  else:
+    success = "Permission was a failure :("
+    return Response(success)
 
 #Get permissions
 @api_view(["POST"])
@@ -155,24 +154,23 @@ class multipleData(APIView):
         return HttpResponse(output)
 
 #Upload new data for a school in collection
-class uploadFile(APIView):
-  @api_view(["POST"])
-  def get(self, request):
-    schoolData = []
-    #try:
-    file = request.POST.get('data')
-    #data = open(file, 'r')
-    #except Exception as e:
-    print(file)
-    #collegeData = file.split(" ")
-    #collegeData = str(collegeData)
-    newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
-    newData.save()
-    # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
-    uniqueID = newData.id
-    blankPrediction = predictionType(UniqueID = uniqueID)
-    blankPrediction.save()
-    return Response(uniqueID)
+@api_view(["POST"])
+def uploadFile(request):
+  schoolData = []
+  #try:
+  file = request.POST.get('data')
+  #data = open(file, 'r')
+  #except Exception as e:
+  print(file)
+  #collegeData = file.split(" ")
+  #collegeData = str(collegeData)
+  newData = HigherEdDatabase(data = file, collegeName = request.POST.get('collegeName'), departmentName = request.POST.get('departmentName'), universityName = request.POST.get('universityName'), amountOfStudents = request.POST.get('amountOfStudents'), pubDate = timezone.now())
+  newData.save()
+  # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
+  uniqueID = newData.id
+  blankPrediction = predictionType(UniqueID = uniqueID)
+  blankPrediction.save()
+  return Response(uniqueID)
 
 #Train a model on the newly updated school data
 class trainModel(APIView):
