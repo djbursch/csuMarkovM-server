@@ -14,8 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken, Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-import json
-from rest_framework_simplejwt.views import TokenObtainPairView 
+import json 
 import numpy as np
 import io
 from django.core.mail import send_mail
@@ -33,6 +32,7 @@ from django.contrib import messages
     Returns:
         a render request to the index.html file as mentioned above
 """
+
 class HomePageView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
@@ -53,6 +53,19 @@ class ProfileView(APIView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
 
+
+""" Classes for the routes that will be used by the frontend to do some action
+
+    These routes will need to be locked behind various permissions and at the very 
+    least will need json web token authenication (from the IsAuthenticated library).
+    
+    Args:
+        request (object): The object sent with the request
+        incomingstudents (string): Amount of students incoming for a single semester 
+    Returns:
+        a response to the frontend with either a success message or a needed variable
+"""
+
 #Send email to user
 class sendEmail(APIView):
   def sendEmail(request):
@@ -71,7 +84,7 @@ class createUser(APIView):
     success = "User created successfully"
     return Response(success)
 
-#Give permissions
+#Give permissions to a user
 class givePerm(APIView):
   def get(request):
     username = request.data.get('username')
@@ -104,6 +117,7 @@ class getPerm(APIView):
       permission_list = "failure :("
     return Response(permission_list)
 
+#Getting all the universities saved in the DB
 class index(APIView):
     permission_classes = (IsAuthenticated, "can_view_clg")
 
@@ -112,6 +126,7 @@ class index(APIView):
         output = ', '.join([a.schoolName for a in latestDataList])
         return Response(output)
 
+#Getting the data from a single university
 class singleData(APIView):
     permission_classes = (IsAuthenticated, )
 
@@ -127,7 +142,7 @@ class singleData(APIView):
            data = "Oops! That request returned too many responses."
            return Response(data)
 
-#changing file
+#Getting multiple 
 class multipleData(APIView):
       permission_classes = (IsAuthenticated,)
 
@@ -158,6 +173,7 @@ class uploadFile(APIView):
     blankPrediction.save()
     return Response(uniqueID)
 
+#Train a model on the newly updated school data
 class trainModel(APIView):
   def get(self, request):
     [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request)
@@ -167,12 +183,14 @@ class trainModel(APIView):
     schoolData.save()
     return Response(graph)
 
+#A class for changing variables to a json object.... not really used right now
 class NumpyEncoder(json.JSONEncoder):
   def default(self, obj):
     if isinstance(obj, np.ndarray):
       return obj.tolist()
     return json.JSONEncoder.default(self, obj)
 
+#Test the already trained cohortmodel
 class testData(APIView):
   def get(self, request, incomingStudents):
     data = cohortTest(incomingStudents)
