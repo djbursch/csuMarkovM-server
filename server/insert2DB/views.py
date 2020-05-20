@@ -164,6 +164,7 @@ def uploadFile(request):
   schoolData = []
   #try:
   file = request.data.get('data')
+  print(file)
   data = open(file, 'r')
   #except Exception as e:
   print(data)
