@@ -182,7 +182,7 @@ class trainModel(APIView):
     [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
     graph = cohortTrain(nStudents,sigma,beta,alpha)
     schoolData = predictionType.get(UniqueID = uniqueID)
-    schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 500, pubDate = timezone.now())
+    schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
     schoolData.save()
     return Response(graph)
 
