@@ -175,7 +175,7 @@ def trainModel(request):
   uniqueID = request.data.get('uniqueID')
   schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
   nStudents = request.data.get('amountOfStudents')
-  [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents,schoolData)
+  [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents)
   graph = cohortTrain(nStudents,sigma,beta,alpha)
   schoolData = predictionType.get(UniqueID = uniqueID)
   schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
