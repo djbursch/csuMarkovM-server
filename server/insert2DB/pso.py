@@ -2,7 +2,7 @@ import pyswarms as ps
 import pyswarms as ps
 import numpy as np
 from pyswarms.single.global_best import GlobalBestPSO
-from cost.py import cost
+from .cost import cost
 
 def particleSwarmOptimization(request, nStudents):
 
