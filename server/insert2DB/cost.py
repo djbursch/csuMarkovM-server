@@ -30,7 +30,7 @@ def Markov(nStudents,s,b,a):
 	#Calibration Factors
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
-	incoming=nStudents*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
+	incoming=488*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
 	sigma=s*np.asarray([0.0,3.6,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]) #University withdrawal rate (1-retained)for each class at time k
 	beta=b*np.asarray(ones) #DFW rate for each class at time k (need to repeat)
 	alpha=a*np.asarray(ones) #slowing factor to account for students taking less than 15 units per semester (need additional semester to complete class)
