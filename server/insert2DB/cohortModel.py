@@ -4,7 +4,7 @@ import random as rm
 
 def cohortTrain(nStudents,s,b,a):
 	#This is for when the model is already trained
-	incomingStudents = int(incomingStudents)
+	nStudents = int(nStudents)
 
 	##Inputs
 	n = 8 #number of semesters in road map
