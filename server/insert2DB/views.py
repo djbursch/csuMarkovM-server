@@ -179,7 +179,7 @@ def trainModel(request):
   [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,nStudents)
   graph = cohortTrain(nStudents,sigma,beta,alpha)
   #schoolData = predictionType.objects.filter(UniqueID = uniqueID)
-  newdata = predictionType(UniqueID = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbda = lmbd, numberOfStudents = 488, pubDate = timezone.now())
+  newdata = predictionType(UniqueID = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbda = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
   newdata.save()
   return Response(graph)
 
