@@ -7,6 +7,7 @@ class HigherEdDatabase(models.Model):
 	collegeName = models.TextField(max_length = 200)
 	departmentName = models.TextField(max_length = 200)
 	universityName = models.TextField(max_length = 200)
+	cohortDate = models.TextField(max_length = 200)
 	amountOfStudents = models.CharField(max_length = 200)
 	pubDate = models.DateTimeField('date published')
 	def __str__(self):

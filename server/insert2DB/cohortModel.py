@@ -116,10 +116,10 @@ def cohortTrain(nStudents,s,b,a):
 		number_of_units_attempted1=number_of_units_attempted;
 	
 
-	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'yellow'), 'coeGrad':(graduating,'orange'),'description':'figure1'},
-            'figure2':{'x-axis':time, 'f1':(x[1,:],'purple'), 'f2':(x[2,:],'red'), 's1':(x[3,:],'blue'), 's2':(x[4,:],'yellow'), 'j1':(x[5,:],'#0048BA'), 'j2':(x[6,:],'Amber'), 'se1':(x[7,:],'#7C0A02'), 'se2':(x[8,:],'brown'),'description':'figure2'},
-            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#E34234'), 'retention':(cohortretention[0],'red'), 'graduation':(cohortgrad[0],'GREEN'),'description':'figure3'},
-            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'pink'), '30-59units':((x[3,:]+x[4,:])/2,'purple'), '60-89units':((x[5,:]+x[6,:])/2,'#03C03C'), '90-119units':((x[7,:]+x[8,:])/2, '#666699'),'description':'figure4'}}
+	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'#000000'), 'coeGrad':(graduating,'#E69F00'),'description':'figure1'},
+            'figure2':{'x-axis':time, 'f1':(x[1,:],'#000000'), 'f2':(x[2,:],'#E69F00'), 's1':(x[3,:],'#56B4E9'), 's2':(x[4,:],'#009E73'), 'j1':(x[5,:],'#F0E442'), 'j2':(x[6,:],'#0072B2'), 'se1':(x[7,:],'#D55E00'), 'se2':(x[8,:],'#CC79A7'),'description':'figure2'},
+            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#000000'), 'retention':(cohortretention[0],'#E69F00'), 'graduation':(cohortgrad[0],'#56B4E9'),'description':'figure3'},
+            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'#000000'), '30-59units':((x[3,:]+x[4,:])/2,'#E69F00'), '60-89units':((x[5,:]+x[6,:])/2,'#56B4E9'), '90-119units':((x[7,:]+x[8,:])/2, '#009E73'),'description':'figure4'}}
 	return data
 
 def cohortTest(incomingStudents):
@@ -139,7 +139,7 @@ def cohortTest(incomingStudents):
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
 	incoming=incomingStudents*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
-	#LOAD PARAMETER MODEL
+	#LOAD PARAMETER MODEL - NEEDS TO BE UPLOADED FROM HIGHERED/PREDICTIONTYPE DB
 	#Department name, '4year graduation', maybe other things
 	sigma=0.02*np.asarray([0.0,3.6,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]) #University withdrawal rate (1-retained)for each class at time k
 	beta=0.05*np.asarray(ones) #DFW rate for each class at time k (need to repeat)
@@ -237,10 +237,10 @@ def cohortTest(incomingStudents):
 		number_of_units_attempted1=number_of_units_attempted;
 	
 
-	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'yellow'), 'coeGrad':(graduating,'orange'),'description':'figure1'},
-            'figure2':{'x-axis':time, 'f1':(x[1,:],'purple'), 'f2':(x[2,:],'red'), 's1':(x[3,:],'blue'), 's2':(x[4,:],'yellow'), 'j1':(x[5,:],'#0048BA'), 'j2':(x[6,:],'Amber'), 'se1':(x[7,:],'#7C0A02'), 'se2':(x[8,:],'brown'),'description':'figure2'},
-            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#E34234'), 'retention':(cohortretention[0],'red'), 'graduation':(cohortgrad[0],'GREEN'),'description':'figure3'},
-            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'pink'), '30-59units':((x[3,:]+x[4,:])/2,'purple'), '60-89units':((x[5,:]+x[6,:])/2,'#03C03C'), '90-119units':((x[7,:]+x[8,:])/2, '#666699'),'description':'figure4'}}
+	data = {'figure1':{'x-axis':time,'uGrad':(y[0,:],'#000000'), 'coeGrad':(graduating,'#E69F00'),'description':'figure1'},
+            'figure2':{'x-axis':time, 'f1':(x[1,:],'#000000'), 'f2':(x[2,:],'#E69F00'), 's1':(x[3,:],'#56B4E9'), 's2':(x[4,:],'#009E73'), 'j1':(x[5,:],'#F0E442'), 'j2':(x[6,:],'#0072B2'), 'se1':(x[7,:],'#D55E00'), 'se2':(x[8,:],'#CC79A7'),'description':'figure2'},
+            'figure3':{'x-axis':time, 'persistance':(cohortpersistance[0],'#000000'), 'retention':(cohortretention[0],'#E69F00'), 'graduation':(cohortgrad[0],'#56B4E9'),'description':'figure3'},
+            'figure4':{'x-axis':time, '0-29units':((x[1,:]+x[2,:])/2,'#000000'), '30-59units':((x[3,:]+x[4,:])/2,'#E69F00'), '60-89units':((x[5,:]+x[6,:])/2,'#56B4E9'), '90-119units':((x[7,:]+x[8,:])/2, '#009E73'),'description':'figure4'}}
 	return data
 
 

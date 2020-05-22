@@ -161,7 +161,7 @@ class multipleData(APIView):
 #Upload new data for a school in collection
 @api_view(["POST"])
 def uploadFile(request):
-  newData = HigherEdDatabase(data = request.data.get('data'), collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
+  newData = HigherEdDatabase(data = request.data.get('data'), collegeName = request.data.get('collegeName'), departmentName = request.data.get('departmentName'), universityName = request.data.get('universityName'), cohortDate = request.data.get('cohortDate'), amountOfStudents = request.data.get('amountOfStudents'), pubDate = timezone.now())
   newData.save()
   # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
   uniqueID = newData.id
@@ -182,6 +182,12 @@ def trainModel(request):
   newdata = predictionType(UniqueID = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbda = lmbd, numberOfStudents = nStudents, pubDate = timezone.now())
   newdata.save()
   return Response(graph)
+
+@api_view(["POST"])
+def saveModel(request):
+  #ACTUALLY SAVE THE MODEL DATA HERE
+  success = "need to actually change this to happen when success training"
+  return Response(success)
 
 #A class for changing variables to a json object.... not really used right now
 class NumpyEncoder(json.JSONEncoder):
