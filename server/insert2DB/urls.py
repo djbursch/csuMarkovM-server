@@ -42,7 +42,7 @@ urlpatterns = [
     path('train/', views.trainModel, name = 'trainModel'),
     
     #Path for sending data to the oracle
-    path('markov/<str:incomingStudents>/', views.testData, name = 'testData'),
+    path('markov/<str:incomingStudents>/', views.testData.as_view(), name = 'testData'),
 
     #Path for creating a user
     url('createUser', views.createUser, name = 'createUser'),
