@@ -177,9 +177,9 @@ def trainModel(request):
   #nStudents = request.data.get('amountOfStudents')
   [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,488)
   graph = cohortTrain(488,sigma,beta,alpha)
-  schoolData = predictionType.get(UniqueID = uniqueID)
-  schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 488, pubDate = timezone.now())
-  schoolData.save()
+  #schoolData = predictionType.get(UniqueID = uniqueID)
+  #schoolData(sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 488, pubDate = timezone.now())
+  #schoolData.save()
   return Response(graph)
 
 #A class for changing variables to a json object.... not really used right now
