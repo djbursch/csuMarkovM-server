@@ -16,7 +16,7 @@ def particleSwarmOptimization(request, nStudents):
 	optimizer = GlobalBestPSO(n_particles=10, dimensions=4, options=options, bounds=bounds)
 
 	# now run the optimization
-	cost, pos = optimizer.optimize(cost,100, nStudents = nStudents)
+	bestcost, pos = optimizer.optimize(cost,100, nStudents = nStudents)
 
 	return pos
 
