@@ -173,8 +173,8 @@ def uploadFile(request):
 @api_view(["POST"])
 def trainModel(request):
   uniqueID = request.data.get('uniqueID')
-  schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
-  print(schoolData[3])
+  schoolData = HigherEdDatabase.objects.find(id = uniqueID)
+  print(schoolData)
   #nStudents = request.data.get('amountOfStudents')
   [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,488)
   graph = cohortTrain(488,sigma,beta,alpha)
