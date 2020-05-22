@@ -17,7 +17,7 @@ def cohortTrain(nStudents,s,b,a):
 	##Calibration factors for PSO
 	ones=[0,1,1,1,1,1,1,1,1]
 	COEUnits=[0,3.5,3.5,5,5,12,12,13,13]
-	incoming=488*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
+	incoming=nStudents*np.asarray([0,1,0,0,0,0,0,0,0,0]) #[.47,0.01,.01,0.01,.47,0.01,.01,0.01];%number of student entering into each class at time k
 	#LOAD PARAMETER MODEL
 	#Department name, '4year graduation', maybe other things
 	sigma=s*np.asarray([0.0,3.6,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]) #University withdrawal rate (1-retained)for each class at time k
