@@ -189,11 +189,11 @@ class NumpyEncoder(json.JSONEncoder):
       return obj.tolist()
     return json.JSONEncoder.default(self, obj)
 
-#Test the already trained cohortmodel
-@api_view(["POST"])
-def testData(request, incomingStudents):
-  data = cohortTest(incomingStudents)
-  totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
-  #json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
-  return Response(totalGraphs)   
+class testData(APIView): #gradRate
+#Send a schools test data to the oracle
+  def get(self, request, incomingStudents):
+    data = cohortTest(incomingStudents)
+    totalGraphs ={'NumOfFigures':len(data), 'Figures': data}
+    #json_dump = json.dumps(totalGraphs, cls=NumpyEncoder)
+    return Response(totalGraphs)
 
