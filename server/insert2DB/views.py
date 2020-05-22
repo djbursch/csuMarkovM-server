@@ -165,8 +165,8 @@ def uploadFile(request):
   newData.save()
   # MAKING THE "BLANK" MODEL FOR WHEN WE WANT TO SAVE PREDICTIONS
   uniqueID = newData.id
-  blankPrediction = predictionType(UniqueID = uniqueID)
-  blankPrediction.save()
+  #blankPrediction = predictionType(UniqueID = uniqueID)
+  #blankPrediction.save()
   return Response(uniqueID)
 
 #Train a model on the newly updated school data
@@ -177,8 +177,8 @@ def trainModel(request):
   nStudents = request.data.get('amountOfStudents')
   [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,488)
   graph = cohortTrain(488,sigma,beta,alpha)
-  schoolData = predictionType.objects.filter(UniqueID = uniqueID)
-  newdata = schoolData(id = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 488, pubDate = timezone.now())
+  #schoolData = predictionType.objects.filter(UniqueID = uniqueID)
+  newdata = predictionType(id = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbd = lmbd, numberOfStudents = 488, pubDate = timezone.now())
   newdata.save()
   return Response(graph)
 
