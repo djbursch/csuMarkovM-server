@@ -2,7 +2,7 @@ import numpy as np
 import random as rm
 
 #include graduation, retention, # of students, and units
-def cost(x, nStudents, schoolData):
+def cost(x, nStudents):
 	UnivGrad10 =[0,0,1,33,195,305]
 	graderror1 = [0,0,0,0,0,0]
 	graderror2 = [0,0,0,0,0,0]
