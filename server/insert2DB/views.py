@@ -174,9 +174,9 @@ def uploadFile(request):
 def trainModel(request):
   uniqueID = request.data.get('uniqueID')
   schoolData = HigherEdDatabase.objects.filter(id = uniqueID)
+  print(schoolData)
   nStudents = request.data.get('amountOfStudents')
   [sigma,beta,alpha,lmbd] = particleSwarmOptimization(request,488)
-  print(sigma)
   graph = cohortTrain(488,sigma,beta,alpha)
   #schoolData = predictionType.objects.filter(UniqueID = uniqueID)
   newdata = predictionType(UniqueID = uniqueID, sigma = sigma, alpha = alpha, beta = beta, lmbda = lmbd, numberOfStudents = 488, pubDate = timezone.now())
